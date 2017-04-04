@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="uk-height-1-1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon-precomposed" href="../../layout/cms/images/apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/css/uikit.almost-flat.min.css">
+  <meta name="robots" content="noindex,nofollow" />
+  <title>glFusion Sitemap Plugin Configuration</title>
+  <style>
+    html{background:#f9f9f9}.tm-dropdown,.tm-navbar{background:#325482!important}.uk-form label{font-weight:700}.tm-navbar{border-radius:0!important;padding:1px 0 6px!important;border:none!important}.tm-navbar-brand{color:#eee!important}.tm-navbar-brand a{text-shadow:none;color:#fff}.tm-navbar-brand a:hover{color:#ababab;text-decoration:none}.tm-navbar-brand-oc a{text-shadow:none;color:#fff}.tm-navbar-brand-oc a:hover{color:#ababab;text-decoration:none}.tm-navbar-nav>li>a{border:none;border-radius:3px!important;font-size:15px!important;height:40px!important;margin:0!important}.tm-dropdown{color:#000;border-radius:0!important;border:0!important}.tm-nav-navbar>li>a{color:#fff!important}.tm-navbar::after,.tm-navbar::before{margin-top:7px!important}.tm-navbar-nav>li.uk-open>a,.tm-navbar-nav>li:hover>a,.tm-navbar-nav>li>a:focus{color:#fff;outline:0;background:#35B3EE!important}.tm-navbar-nav>li>a{color:#fff!important;text-shadow:none!important}.tm-navbar-toggle{color:#ccc!important;text-shadow:none!important}.tm-navbar-toggle:focus,.tm-navbar-toggle:hover{color:#fff!important}.tm-footer{background:#252525;border-top:1px solid #232425;margin-bottom:0;bottom:0;padding:10px;color:#fff}.tm-wrapper{min-height:100%;margin:0 auto -51px!important}.tm-push,footer{height:51px}.uk-navbar-content > a {color:#fff !important;}
+  </style>
+</head>
+
+<body class="uk-height-1-1">
+  <div class="tm-wrapper">
+    <nav class="uk-navbar uk-navbar-attached tm-navbar uk-margin-bottom">
+      <div class="uk-navbar-brand tm-navbar-brand">
+        glFusion Sitemap Plugin Configuration
+      </div>
+      <div class="uk-navbar-flip uk-hidden-small">
+        <div class="uk-navbar-content tm-navbar-content" style="text-shadow:none;">
+          <a href="https://www.glfusion.org/wiki/">glFusion Wiki</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="uk-container uk-container-center uk-margin-bottom">
+      <h1>glFusion SocialShare Plugin Configuration</h1>
+      <p>Social Sharing Plugin.</p>
+
+      <h2>Configuration Options</h2>
+
+      <dl id="desc_pubid">
+        <dt>AddToAny Publisher ID</dt>
+        <dd>Your AddToAny profile ID. Always global to a page.</dd>
+      </dl>
+
+      <dl id="desc_services_exclude">
+        <dt>services_exclude</dt>
+        <dd>Services to exclude from all menus. For example, setting this to 'facebook,myspace' would hide Facebook and MySpace on all our menus. Always global.	string (csv) of service codes.</dd>
+      </dl>
+
+      <dl id="desc_services_compact">
+        <dt>services_compact</dt>
+        <dd>Services to use in the compact menu. For example, setting this to 'print,email,favorites' would result in only those three services appearing. Always global.	string (csv) of service codes	We regularly optimize the default list based on our data.</dd>
+      </dl>
+
+      <dl id="desc_services_expanded">
+        <dt>services_expanded</dt>
+        <dd>Services to use in the expanded menu. Useful if very few services are desired � specifying a long list via services_exclude could be tiresome, and wouldn�t catch a new service added later. For example, setting this to 'bebo,misterwong,netvibes' would result in only those three services appearing in the expanded menu. Always global.	string (csv) of service codes	all the services AddToAny offers.</dd>
+      </dl>
+
+      <dl id="desc_ui_click">
+        <dt>ui_click</dt>
+        <dd>If true, the compact menu will never appear upon mousing over the regular button. Instead, it will be revealed upon clicking the button.</dd>
+      </dl>
+
+      <dl id="desc_ui_disable">
+        <dt>ui_disable</dt>
+        <dd>If true, the compact menu will never appear upon mousing over or clicking on the regular button. Upon clicking, the expanded service menu will appear instead.</dd>
+      </dl>
+
+      <dl id="desc_placement">
+        <dt>placement</dt>
+        <dd>Location where the Share button will be displayed.</dd>
+      </dl>
+
+      <dl id="desc_ui_delay">
+        <dt>ui_delay</dt>
+        <dd>Delay, in milliseconds, before compact menu appears when mousing over a regular button. Capped at 500 ms.</dd>
+      </dl>
+
+      <dl id="desc_ui_hover_direction">
+        <dt>ui_hover_direction</dt>
+        <dd>Normally, we show the compact menu in the direction of the user's browser that has the most space (i.e., a button at the bottom of the page will pop up, and vice versa). You can override this behavior with this setting: 1 to force the menu to appear "up", -1 to force the menu to appear "down".</dd>
+      </dl>
+
+      <dl id="desc_data_track_addressbar">
+        <dt>data_track_addressbar</dt>
+        <dd>Set to true to allow us to append a variable to the page URL. Measures how often users share your site by copying the page URL from their address bar. Always global.</dd>
+      </dl>
+
+      <dl id="desc_data_track_clickback">
+        <dt>data_track_clickback</dt>
+        <dd>Set to true to allow us to append a variable to your URLs upon sharing. We'll use this to track how many people come back to your content via links shared with AddToAny. Highly recommended. Always global.</dd>
+      </dl>
+
+      <dl id="desc_data_ga_property">
+        <dt>data_ga_property</dt>
+        <dd>Google Analytics property ID (generally a serial number of the form UA-xxxxxx-x). If set, we�ll send AddToAny tracking events to Google, so you can have integrated reporting.</dd>
+      </dl>
+
+      <dl id="desc_data_ga_social">
+        <dt>data_ga_social</dt>
+        <dd>Google Analytics social interaction analytics.</dd>
+      </dl>
+
+
+    </div>
+  </div>
+</body>
+</html>

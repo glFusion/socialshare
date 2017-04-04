@@ -1,0 +1,69 @@
+<script type="text/javascript"><!--
+  var formblock;
+  var forminputs;
+
+  function prepare() {
+    formblock= document.getElementById('ss_config_form');
+    forminputs = formblock.getElementsByTagName('input');
+  }
+
+  function select_all(name, value) {
+
+    if (forminputs.x.checked == false ) {
+      value = '0';
+    } else {
+      value = '1';
+    }
+
+    for (i = 0; i < forminputs.length; i++) {
+      // regex here to check name attribute
+      var regex = new RegExp(name, "i");
+      if (regex.test(forminputs[i].getAttribute('name'))) {
+        if (value == '1') {
+          forminputs[i].checked = true;
+        } else {
+          forminputs[i].checked = false;
+        }
+      }
+    }
+  }
+
+  if (window.addEventListener) {
+    window.addEventListener("load", prepare, false);
+  } else if (window.attachEvent) {
+    window.attachEvent("onload", prepare)
+  } else if (document.getElementById) {
+    window.onload = prepare;
+  }
+
+//--></script>
+
+<table class="uk-table uk-table-striped uk-table-hover">
+<tr>
+<th class="uk-text-center">Prioritized</th>
+<th class="uk-text-center">Excluded</th>
+<th class="uk-text-center">Share Buttons</th>
+<th>{$LANG_SS00[name]}</th>
+<th>{$LANG_SS00[description]}</th>
+</tr>
+
+<!-- BEGIN ServicesRow -->
+<tr>
+  <td class="uk-text-center">
+  <input type="checkbox" name="priority[{id}]" value="1" {priority_checked} />
+  </td>
+
+  <td class="uk-text-center">
+    <input type="checkbox" name="excluded[{id}]" value="1" {excluded_checked} />
+  </td>
+
+  <td class="uk-text-center">
+    <input type="checkbox" name="sbutton[{id}]" value="1" {button_checked} />
+  </td>
+
+  <td><span class="uk-text-bold">{name}</span></td>
+  <td>{description}</td>
+
+</tr>
+<!-- END ServicesRow -->
+</table>

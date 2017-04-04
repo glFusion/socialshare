@@ -1,0 +1,13 @@
+{# begin {templatelocation} #}
+
+{!if share_title}
+  <h2 class="uk-text-center">{share_title}</h2>
+{!endif}
+
+  <div id="ss-plugin-icons" class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-url="{item_url}" data-a2a-title="{item_title}">
+<!-- BEGIN buttons -->
+    <a class="a2a_button_facebook"></a>
+<!-- END buttons -->
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+  </div>
+{# end {templatelocation} #}
