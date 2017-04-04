@@ -320,7 +320,7 @@ function plugin_social_share_override_socialshare()
 
 function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
 {
-    global $_TABLES, $_CONF, $_SS_CONF;
+    global $_TABLES, $_CONF, $_SS_CONF, $LANG_SS00;
 
     if ( $_SS_CONF['replace_ss'] != 1 ) return '';
 
