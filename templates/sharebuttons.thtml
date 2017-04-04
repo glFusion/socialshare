@@ -1,21 +1,31 @@
 {# begin {templatelocation} #}
-<h2 class="uk-text-center">Share It!</h2>
 
-<div id="social_share_buttons_center" class="a2a_kit a2a_kit_size_32 a2a_default_style"
+<div class="uk-panel uk-margin-top">
+
+{!if heading}
+<h2 class="uk-text-center">{heading}</h2>
+{!endif}
+
+
+
+  <div id="social_share_buttons_center" class="a2a_kit a2a_kit_size_{share_button_size} a2a_default_style"
 {!if url}
- data-a2a-url="{url}"
+    data-a2a-url="{url}"
 {!endif}
 {!if title}
- data-a2a-title="{title}"
+    data-a2a-title="{title}"
 {!endif}
->
+    >
+
 <!-- BEGIN ShareButtons -->
-<a class="a2a_button_{button}"></a>
+    <a class="a2a_button_{button} {!if share_counters} a2a_counter {!endif}"></a>
 <!-- END ShareButtons -->
 
 {!if more}
-<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+    <a class="a2a_dd {!if more_share_counters} a2a_counter {!endif}" href="https://www.addtoany.com/share"></a>
 {!endif}
+
+  </div>
 
 </div>
 

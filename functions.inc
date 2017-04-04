@@ -205,58 +205,107 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
 
     $buttons[2]['name'] = 'uikit';
     $buttons[2]['name'] = 'uikit';
+    $sd = $template->get_var('story_display');
 
     if ( $templatename == 'article' || $templatename == 'featuredarticle' || $templatename == 'archivearticle') {
         $article_url = $template->get_var('article_url');
         $story_title = $template->get_var('story_title');
-        if ( $article_url != '' ) {
-            switch ($_SS_CONF['placement']) {
-                case 1 :
-                    $location = 'plugin_icon_vars';
-                    break;
-                case 2 :
-                    $location = 'plugin_meta_vars';
-                    break;
-                case 3 :
-                    $location = 'plugin_body_vars';
-                    break;
-                case 4 :
-                    $location = 'plugin_footer_vars';
-                    break;
-                default :
-                    $location = 'plugin_icon_vars';
-                    break;
-            }
 
-            $socialshareButton = '<a class="a2a_dd" href="https://www.addtoany.com/share" data-a2a-url="'.$article_url.'" data-a2a-title="'.htmlspecialchars($story_title).'">';
+        $T = new Template($_CONF['path'] . 'plugins/socialshare/templates/');
+        switch ( $_SS_CONF['placement'] ) {
+            case 0 :
+                $T->set_file (array ('storyshare' => 'story-share-meta.thtml'));
+                $location = 'plugin_icon_vars';
+                break;
+            case 1 :
+                if ( $sd != 'index' ) return;
+                if ( $_SS_CONF['button_style'] == 7 ) {
+                    $T->set_file (array ('storyshare' => 'sharebuttons.thtml'));
+                } else {
+                    $T->set_file (array ('storyshare' => 'story-share-body.thtml'));
+                }
+                $location = 'plugin_footer_vars';
+                break;
+            default :
+                $T->set_file (array ('storyshare' => 'story-share-meta.thtml'));
+                $location = 'plugin_icon_vars';
+                break;
+        }
+
+        if ( $article_url != '' ) {
+            $T->set_var('url', $article_url );
+            $T->set_var('title', htmlspecialchars($story_title) );
 
             switch ( $_SS_CONF['button_style'] ) {
                 case 0 :
                 case 1 :
-                    $socialshareButton .= '<img src="'.$_CONF['site_url'].'/socialshare/images/'.$buttons[1]['name'].'" width="'.$buttons[1]['width'].'" height="18" border="0" alt="Share" />';
+                    $T->set_var('share_button','<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-plus-square" onclick="return false;"></i>');
                     break;
                 case 2 :
-                    $socialshareButton .= '<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-share-alt" onclick="return false;"></i>';
+                    $T->set_var('share_button','<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-share-alt" onclick="return false;"></i>');
                     break;
                 case 3 :
-                    $socialshareButton .= '<button onclick="return false;" type="button" class="uk-button uk-button-primary uk-button-mini"><i class="uk-icon uk-icon-share"></i>&nbsp;'.$LANG_SS00['share'].'</button>';
+                    $T->set_var('share_button','<button onclick="return false;" type="button" class="uk-button uk-button-primary uk-button-mini"><i class="uk-icon uk-icon-share"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
                     break;
                 case 4 :
-                    $socialshareButton .= '<button onclick="return false;" class="uk-button uk-button-primary"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>';
+                    $T->set_var('share_button','<button onclick="return false;" class="uk-button uk-button-primary"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
                     break;
                 case 5 :
-                    $socialshareButton .= '<button onclick="return false;" type="button" class="uk-button uk-button-success uk-button-mini"><i class="uk-icon uk-icon-share"></i>&nbsp;'.$LANG_SS00['share'].'</button>';
+                    $T->set_var('share_button','<button onclick="return false;" type="button" class="uk-button uk-button-success uk-button-mini"><i class="uk-icon uk-icon-share"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
                     break;
                 case 6 :
-                    $socialshareButton .= '<button onclick="return false;" class="uk-button uk-button-success"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>';
+                    $T->set_var('share_button','<button onclick="return false;" class="uk-button uk-button-success"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
+                    break;
+                case 7 :
+                    $button = array();
+                    $sql = "SELECT * FROM {$_TABLES['ss_services']} WHERE button=1 ORDER BY name";
+                    $result = DB_query($sql);
+                    while ( $row = DB_fetchArray($result) ) {
+                        $button[] = array('code' => $row['code'],'priority' => $row['priority'],'excluded' => $row['excluded']);
+                    }
+                    if ( count($button) > 0 || $_SS_CONF['more'] == 1 ) {
+                        switch ($_SS_CONF['sharebutton_style']) {
+                            case 1 : // 32
+                                $T->set_var('share_button_size',32);
+                                break;
+                            case 2 : // 64
+                                $T->set_var('share_button_size',64);
+                                break;
+                            case 3 : // 16
+                                $T->set_var('share_button_size',16);
+                                break;
+                            default :
+                                $T->set_var('share_button_size',32);
+                        }
+                        $T->set_block('storyshare', 'ShareButtons', 'sButtons');
+                        foreach ($button AS $bt ) {
+                            $T->set_var('button', $bt['code']);
+                            if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 ) {
+                                $T->set_var('share_counters',true);
+                            } else {
+                                $T->unset_var('share_counters');
+                            }
+                            $T->parse('sButtons', 'ShareButtons',true);
+                        }
+                        if ( $_SS_CONF['more'] ) {
+                            $T->set_var('more',true);
+                            if ( $_SS_CONF['share_counters'] ) {
+                                $T->set_var('more_share_counters',true);
+                            } else {
+                                $T->unset_var('more_share_counters');
+                            }
+                        }
+                    }
                     break;
                 default :
-                    $socialshareButton .= '<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-share-square"></i>';
+                    $T->set_var('share_button','<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-share-square"></i>');
                     break;
             }
 
-            $socialshareButton .= '</a>';
-            $template->set_var($location, $socialshareButton,false,true);
+            $T->parse('output', 'storyshare');
+            $replacementText = $T->finish($T->get_var('output'));
+
+            $template->set_var($location, $replacementText,false,true);
         }
     }
     return;
@@ -281,27 +330,51 @@ function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
     $sql = "SELECT * FROM {$_TABLES['ss_services']} WHERE button=1 ORDER BY name";
     $result = DB_query($sql);
     while ( $row = DB_fetchArray($result) ) {
-        $button[] = $row['code'];
+        $button[] = array('code' => $row['code'],'priority' => $row['priority'],'excluded' => $row['excluded']);
     }
     if ( count($button) > 0 || $_SS_CONF['more'] == 1 ) {
 
         $T = new Template($_CONF['path'] . 'plugins/socialshare/templates/');
         $T->set_file (array ('buttons' => 'sharebuttons.thtml'));
 
+        switch ($_SS_CONF['sharebutton_style']) {
+            case 1 : // 32
+                $T->set_var('share_button_size',32);
+                break;
+            case 2 : // 64
+                $T->set_var('share_button_size',64);
+                break;
+            case 3 : // 16
+                $T->set_var('share_button_size',16);
+                break;
+            default :
+                $T->set_var('share_button_size',32);
+        }
+
         $T->set_block('buttons', 'ShareButtons', 'sButtons');
 
         $T->set_var(array(
-            'heading'   => 'Share It',
+            'heading'   => $LANG_SS00['heading'],
             'url'       => ($url != '' ) ? $url : '',
             'title'     => ($title != '' ) ? $title : '',
         ));
 
         foreach ($button AS $bt ) {
-            $T->set_var('button', $bt);
+            $T->set_var('button', $bt['code']);
+            if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 ) {
+                $T->set_var('share_counters',true);
+            } else {
+                $T->unset_var('share_counters');
+            }
             $T->parse('sButtons', 'ShareButtons',true);
         }
         if ( $_SS_CONF['more'] ) {
             $T->set_var('more',true);
+            if ( $_SS_CONF['share_counters'] ) {
+                $T->set_var('more_share_counters',true);
+            } else {
+                $T->unset_var('more_share_counters');
+            }
         }
         $T->parse('output', 'buttons');
         $retval = $T->finish($T->get_var('output'));

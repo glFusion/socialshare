@@ -48,6 +48,8 @@ if (!SEC_hasRights('socialshare.admin')) {
 $display = '';
 $mode = '';
 
+if ( isset($_POST['cancel'] ) ) COM_refresh($_CONF['site_admin_url']);
+
 if (isset ($_POST['mode'])) {
     $mode = COM_applyFilter($_POST['mode']);
 } else if (isset ($_GET['mode'])) {
@@ -71,15 +73,22 @@ function _services_edit()
     $sql = "SELECT * FROM {$_TABLES['ss_services']} ORDER BY name";
     $result = DB_query($sql);
     while ( $row = DB_fetchArray($result) ) {
+        $priorityDisabled = '';
+        $excludedDisabled = '';
+        $priorityChecked = '';
+        $excludedChecked = '';
+
         if ( $row['priority'] == 1 ) {
             $priorityChecked = ' checked="checked" ';
-        } else {
+        } elseif ( $row['priority'] == -1 ) {
             $priorityChecked = '';
+            $priorityDisabled = ' disabled="disabled" ';
         }
         if ( $row['excluded'] == 1 ) {
             $excludedChecked = ' checked="checked" ';
-        } else {
+        } elseif ( $row['excluded'] == -1 ) {
             $excludedChecked = '';
+            $excludedDisabled = ' disabled="disabled" ';
         }
         if ( $row['button'] == 1 ) {
             $buttonChecked = ' checked="checked" ';
@@ -94,6 +103,8 @@ function _services_edit()
             'priority_checked' => $priorityChecked,
             'excluded_checked' => $excludedChecked,
             'button_checked'   => $buttonChecked,
+            'priority_disabled' => $priorityDisabled,
+            'excluded_disabled' => $excludedDisabled,
         ));
 
         $T->parse('sRow', 'ServicesRow',true);
@@ -109,16 +120,22 @@ function _ss_saveSettings()
 
     $settings = array();
 
+    // story share options
     $settings['button_style']   = isset($_POST['button_style']) ? COM_applyFilter($_POST['button_style'],true) : 1;
     $settings['click'] = isset($_POST['click']) ? COM_applyFilter($_POST['click'],true) : 0;
     $settings['delay'] = isset($_POST['delay']) ? COM_applyFilter($_POST['delay'],true) : 400;
     $settings['num_services'] = isset($_POST['num_services']) ? COM_applyFilter($_POST['num_services'],true) : 10;
     $settings['placement'] = isset($_POST['placement']) ? COM_applyFilter($_POST['placement'],true) : 0;
+
+    // social share options
     $settings['replace_ss'] = isset($_POST['replace_ss']) ? COM_applyFilter($_POST['replace_ss'],true) : 0;
     $settings['more'] = isset($_POST['more']) ? COM_applyFilter($_POST['more'],true) : 1;
+    $settings['sharebutton_style']   = isset($_POST['sharebutton_style']) ? COM_applyFilter($_POST['sharebutton_style'],true) : 1;
+    $settings['share_counters'] = isset($_POST['share_counters']) ? COM_applyFilter($_POST['share_counters'],true) : 0;
 
     foreach ($settings AS $name => $value ) {
-       DB_query("UPDATE {$_TABLES['ss_config']} SET conf_value = '".(int) $settings[$name]."' WHERE conf_name='".$name."'");
+        DB_query("UPDATE {$_TABLES['ss_config']} SET conf_value = '".(int) $settings[$name]."' WHERE conf_name='".$name."'");
+        $_SS_CONF[$name] = $settings[$name];
     }
 
     $_SS_CONF['button_style'] = $settings['button_style'];
@@ -126,7 +143,7 @@ function _ss_saveSettings()
     $priority = array();
     $priority = $_POST['priority'];
 
-    DB_query("UPDATE {$_TABLES['ss_services']} SET priority=0");
+    DB_query("UPDATE {$_TABLES['ss_services']} SET priority=0 WHERE priority != -1");
     if ( is_array($priority) && count($priority) > 0 ) {
         foreach ( $priority AS $id => $value ) {
             DB_query("UPDATE {$_TABLES['ss_services']} SET priority=1 WHERE id=".(int) $id);
@@ -136,7 +153,7 @@ function _ss_saveSettings()
     $excluded = array();
     $excluded = (isset($_POST['excluded']) ? $_POST['excluded'] : 0);
 
-    DB_query("UPDATE {$_TABLES['ss_services']} SET excluded=0");
+    DB_query("UPDATE {$_TABLES['ss_services']} SET excluded=0 WHERE excluded != -1");
     if ( is_array($excluded) && count($excluded) > 0 ) {
         foreach ( $excluded AS $id => $value ) {
             DB_query("UPDATE {$_TABLES['ss_services']} SET excluded=1 WHERE id=".(int) $id);
@@ -179,6 +196,10 @@ $T->set_var('rss_1_selected', $_SS_CONF['replace_ss'] == 1 ? ' selected="selecte
 $T->set_var('m_0_selected', $_SS_CONF['more'] == 0 ? ' selected="selected" ' : '');
 $T->set_var('m_1_selected', $_SS_CONF['more'] == 1 ? ' selected="selected" ' : '');
 $T->set_var('button'.$_SS_CONF['button_style'].'_checked', ' checked="checked" ');
+$T->set_var('sharebutton'.$_SS_CONF['sharebutton_style'].'_checked',' checked="checked" ');
+$T->set_var('sc_0_selected', $_SS_CONF['share_counters'] == 0 ? ' selected="selected" ' : '');
+$T->set_var('sc_1_selected', $_SS_CONF['share_counters'] == 1 ? ' selected="selected" ' : '');
+
 
 $T->set_var(array(
     'services'  => _services_edit(),
@@ -204,10 +225,6 @@ if ( $rc == 1 ) {
 $page .= $T->finish($T->get_var('output'));
 
 $page .= COM_endBlock(COM_getBlockTemplate('_admin_block', 'footer'));
-
-
-
-
 
 $display = COM_siteHeader('menu');
 $display .= $page;

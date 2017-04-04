@@ -1,0 +1,7 @@
+{# begin {templatelocation} #}
+<div id="social_share_buttons_center" class="a2a_kit a2a_default_style">
+  <a class="a2a_dd" href="https://www.addtoany.com/share" data-a2a-url="{url}" data-a2a-title="{title}">
+    {share_button}
+  </a>
+</div>
+{# end {templatelocation} #}

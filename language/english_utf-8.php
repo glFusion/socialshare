@@ -6,7 +6,7 @@
 // |                                                                          |
 // | English language file (UTF-8)                                            |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2015 by the following authors:                        |
+// | Copyright (C) 2009-2017 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -32,64 +32,41 @@ if (!defined ('GVERSION')) {
 }
 
 $LANG_SS00 = array (
-    'menulabel'         => 'SocialShare',
-    'plugin'            => 'socialshare',
-    'save'              => 'Save',
-    'cancel'            => 'Cancel',
-    'reset'             => 'Reset',
-    'general_settings'  => 'General Settings',
-    'services'          => 'Services',
-    'admin_desc'        => 'Help your users share your content everywhere. Generate traffic back to your site and increase your site\'s search engine ranking. It only takes seconds to get AddThis, and it\'s free! ',
-    'saved'             => 'SocialShare Settings were successfully saved.',
-    'username'          => 'Username',
-    'username_help'     => 'Your AddThis username.  If you have an account with http://addthis.com you can receive statistics on the social networking activity on your site.',
-    'click_required'    => 'Click Required',
-    'click_required_help' => 'If true, the compact menu will never appear upon mousing over the regular button. Instead, it will be revealed upon clicking the button.',
-    'cobranding'        => 'Co-Branding',
-    'cobranding_help'   => 'Additional branding message to be rendered in the upper-right-hand corner of the menus. Should be less than 15 characters in most cases to render properly.',
-    'button_style'      => 'Button Style',
-    'placement'         => 'Placement',
-    'story_icons'       => 'Story Icons',
-    'story_meta'        => 'Story Meta Data',
-    'story_body'        => 'Story Body',
-    'story_footer'      => 'Story Footer',
-'services_help' => 'Prioritized services will appear on the initial pop-up menu. Excluded services will be removed from the pop-up menu and the more section.',
-    'expanded_services_help' => 'Services to use in the expanded menu.  This is the menu that displays when the user selects the <strong>more</strong> entry from the compact menu.',
-    'enabled'           => 'Enabled',
-    'name'              => 'Name',
-    'category'          => 'Category',
-    'description'       => 'Description',
-    'check_all'         => 'Check All',
-    'uncheck_all'       => 'Uncheck All',
-    'share'             => 'Share',
-    'more'              => 'more',
+    'admin_desc'            => 'The SocialShare plugin allows you to add sharing options to a story and replace the standard glFusion Social Sharing buttons with a more flexible and feature rich option.',
+    'button_style'          => 'Button Style',
+    'cancel'                => 'Cancel',
+    'click_help'            => 'Require user to click share button to open menu',
+    'click_prompt'          => 'Display Menu on Click',
+    'description'           => 'Description',
+    'excluded'              => 'Excluded',
+    'false'                 => 'False',
+    'heading'               => 'Share It',
+    'hover_help'            => 'If Display Menu on Click is False - the # of milliseconds delay before the share menu opens on hover.',
+    'hover_prompt'          => 'Hover Delay (ms)',
+    'menulabel'             => 'SocialShare',
+    'mirror_buttons'        => 'Mirror Share Button Style (Only valid when story body is the location)',
+    'more_prompt'           => 'Include More Option (+)',
+    'name'                  => 'Name',
+    'num_services_help'     => 'The number of services to include in pop-up menu.',
+    'num_services_prompt'   => 'Number of Services in Pop-Up Menu',
+    'placement_prompt'      => 'Share Button Placement',
+    'placement_sb'          => 'Story Body (bottom)',
+    'placement_smd'         => 'Story Meta Data',
+    'plugin'                => 'socialshare',
+    'prioritized'           => 'Prioritized',
+    'replace_ss_help'       => 'If False - all other fields are disabled',
+    'replace_ss_prompt'     => 'Replace glFusion Social Share Buttons',
+    'save'                  => 'Save',
+    'saved'                 => 'SocialShare Settings were successfully saved.',
+    'services'              => 'Services',
+    'services_help'         => 'Prioritized services will appear on the initial pop-up menu. Excluded services will be removed from the pop-up menu and the more section. Share Button will display a button for the share service.',
+    'share'                 => 'Share',
+    'share_button_styles'   => 'Share Button Styles',
+    'share_buttons'         => 'Share Buttons',
+    'share_counters_prompt' => 'Display Share Counts',
+    'social_share_settings' => 'Social Share Button Settings',
+    'story_button_styles'   => 'Story Share Button Styles',
+    'story_share_settings'  => 'Story Share Settings',
+    'true'                  => 'True',
 );
-
-
-// Localization of the Admin Configuration UI
-$LANG_configsections['socialshare'] = array(
-    'label'             => 'SocialShare',
-    'title'             => 'SocialShare Configuration'
-);
-$LANG_confignames['socialshare'] = array(
-    'pubid'             => 'AddThis Published ID',
-    'click'          => 'Click Required',
-    'disable'        => 'Disable Compact Menu',
-    'placement'         => 'Button Location',
-    'delay'          => 'Hover Delay',
-);
-$LANG_configsubgroups['socialshare'] = array(
-    'sg_main'               => 'Configuration Settings'
-);
-$LANG_fs['socialshare'] = array(
-    'ss_general'                 => 'General Settings',
-);
-// Note: entries 0, 1, and 12 are the same as in $LANG_configselects['Core']
-$LANG_configselects['socialshare'] = array(
-    0 => array('True' => 1, 'False' => 0),
-    1 => array('True' => TRUE, 'False' => FALSE),
-    2 => array('Up' => 1, 'Down' => -1),
-    3 => array('Story Icons' => 1, 'Story Meta Data'=> 2,'Story Body' => 3,'Story Footer' => 4),
-);
-
 ?>

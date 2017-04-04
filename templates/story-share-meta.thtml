@@ -1,0 +1,7 @@
+{# begin {templatelocation} #}
+<li>
+  <a class="a2a_dd tm-meta-icon" href="https://www.addtoany.com/share" data-a2a-url="{url}" data-a2a-title="{title}">
+    {share_button}
+  </a>
+</li>
+{# end {templatelocation} #}
