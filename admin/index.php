@@ -121,24 +121,25 @@ function _ss_saveSettings()
     $settings = array();
 
     // story share options
-    $settings['button_style']   = isset($_POST['button_style']) ? COM_applyFilter($_POST['button_style'],true) : 1;
-    $settings['click'] = isset($_POST['click']) ? COM_applyFilter($_POST['click'],true) : 0;
-    $settings['delay'] = isset($_POST['delay']) ? COM_applyFilter($_POST['delay'],true) : 400;
-    $settings['num_services'] = isset($_POST['num_services']) ? COM_applyFilter($_POST['num_services'],true) : 10;
-    $settings['placement'] = isset($_POST['placement']) ? COM_applyFilter($_POST['placement'],true) : 0;
-
+    $settings['story_enabled'] = isset($_POST['story_enabled']) ? 1 : 0;
+    if ( $settings['story_enabled'] == 1 ) {
+        $settings['button_style']   = isset($_POST['button_style']) ? COM_applyFilter($_POST['button_style'],true) : 1;
+        $settings['click'] = isset($_POST['click']) ? COM_applyFilter($_POST['click'],true) : 0;
+        $settings['delay'] = isset($_POST['delay']) ? COM_applyFilter($_POST['delay'],true) : 400;
+        $settings['num_services'] = isset($_POST['num_services']) ? COM_applyFilter($_POST['num_services'],true) : 10;
+        $settings['placement'] = isset($_POST['placement']) ? COM_applyFilter($_POST['placement'],true) : 0;
+    }
     // social share options
-    $settings['replace_ss'] = isset($_POST['replace_ss']) ? COM_applyFilter($_POST['replace_ss'],true) : 0;
-    $settings['more'] = isset($_POST['more']) ? COM_applyFilter($_POST['more'],true) : 1;
-    $settings['sharebutton_style']   = isset($_POST['sharebutton_style']) ? COM_applyFilter($_POST['sharebutton_style'],true) : 1;
-    $settings['share_counters'] = isset($_POST['share_counters']) ? COM_applyFilter($_POST['share_counters'],true) : 0;
-
+    $settings['replace_ss'] = isset($_POST['replace_ss']) ? 1 : 0;
+    if ( $settings['replace_ss'] == 1 ) {
+        $settings['more'] = isset($_POST['more']) ? COM_applyFilter($_POST['more'],true) : 1;
+        $settings['sharebutton_style']   = isset($_POST['sharebutton_style']) ? COM_applyFilter($_POST['sharebutton_style'],true) : 1;
+        $settings['share_counters'] = isset($_POST['share_counters']) ? COM_applyFilter($_POST['share_counters'],true) : 0;
+    }
     foreach ($settings AS $name => $value ) {
         DB_query("UPDATE {$_TABLES['ss_config']} SET conf_value = '".(int) $settings[$name]."' WHERE conf_name='".$name."'");
         $_SS_CONF[$name] = $settings[$name];
     }
-
-    $_SS_CONF['button_style'] = $settings['button_style'];
 
     $priority = array();
     $priority = $_POST['priority'];
@@ -185,6 +186,11 @@ $T = new Template($_CONF['path'] . 'plugins/socialshare/templates/admin/');
 $T->set_file (array ('admin' => 'admin.thtml'));
 
 // configuration data
+$T->set_var('s_0_selected', $_SS_CONF['story_enabled'] == 0 ? ' selected="selected" ' : '');
+$T->set_var('s_1_selected', $_SS_CONF['story_enabled'] == 1 ? ' selected="selected" ' : '');
+
+$T->set_var('s_checked', $_SS_CONF['story_enabled'] == 1 ? ' checked="checked" ' : '');
+
 $T->set_var('c_0_selected', $_SS_CONF['click'] == 0 ? ' selected="selected" ' : '');
 $T->set_var('c_1_selected', $_SS_CONF['click'] == 1 ? ' selected="selected" ' : '');
 $T->set_var('delay',$_SS_CONF['delay']);
@@ -193,6 +199,7 @@ $T->set_var('smd_0_selected', $_SS_CONF['placement'] == 0 ? ' selected="selected
 $T->set_var('smd_1_selected', $_SS_CONF['placement'] == 1 ? ' selected="selected" ' : '');
 $T->set_var('rss_0_selected', $_SS_CONF['replace_ss'] == 0 ? ' selected="selected" ' : '');
 $T->set_var('rss_1_selected', $_SS_CONF['replace_ss'] == 1 ? ' selected="selected" ' : '');
+$T->set_var('rss_checked', $_SS_CONF['replace_ss'] == 1 ? ' checked="checked" ' : '');
 $T->set_var('m_0_selected', $_SS_CONF['more'] == 0 ? ' selected="selected" ' : '');
 $T->set_var('m_1_selected', $_SS_CONF['more'] == 1 ? ' selected="selected" ' : '');
 $T->set_var('button'.$_SS_CONF['button_style'].'_checked', ' checked="checked" ');
