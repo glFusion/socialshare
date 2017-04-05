@@ -139,7 +139,7 @@ function plugin_getheadercode_socialshare()
     $excluded_services = '';
 
     $outputHandle = outputHandler::getInstance();
-    $outputHandle->addLinkScript('//static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH);
+    $outputHandle->addLinkScript('//static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
 
     $result = DB_query("SELECT code, priority, excluded FROM {$_TABLES['ss_services']}");
     while ( $row = DB_fetchArray($result) ) {
@@ -199,6 +199,8 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
 {
     global $_CONF, $_SS_CONF, $_USER, $_TABLES, $LANG_SS00;
 
+    if ( isset($_SS_CONF['story_enabled'] ) && $_SS_CONF['story_enabled'] == 0 ) return;
+
     $buttons[1]['name'] = 'sm-addtoany.png';
     $buttons[1]['width'] = '16';
     $buttons[1]['height'] = '16';
@@ -245,18 +247,24 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
                     $T->set_var('share_button','<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-share-alt" onclick="return false;"></i>');
                     break;
                 case 3 :
-                    $T->set_var('share_button','<button onclick="return false;" type="button" class="uk-button uk-button-primary uk-button-mini"><i class="uk-icon uk-icon-share"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
+                    $T->set_var('share_button','<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-share-alt-square" onclick="return false;"></i>');
                     break;
                 case 4 :
-                    $T->set_var('share_button','<button onclick="return false;" class="uk-button uk-button-primary"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
+                    $T->set_var('share_button','<button onclick="return false;" type="button" class="uk-button uk-button-mini"><i class="uk-icon uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
                     break;
                 case 5 :
-                    $T->set_var('share_button','<button onclick="return false;" type="button" class="uk-button uk-button-success uk-button-mini"><i class="uk-icon uk-icon-share"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
+                    $T->set_var('share_button','<button onclick="return false;" type="button" class="uk-button uk-button-primary uk-button-mini"><i class="uk-icon uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
                     break;
                 case 6 :
-                    $T->set_var('share_button','<button onclick="return false;" class="uk-button uk-button-success"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
+                    $T->set_var('share_button','<button onclick="return false;" type="button" class="uk-button uk-button-success uk-button-mini"><i class="uk-icon uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
                     break;
                 case 7 :
+                    $T->set_var('share_button','<button onclick="return false;" class="uk-button uk-button-primary"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
+                    break;
+                case 8 :
+                    $T->set_var('share_button','<button onclick="return false;" class="uk-button uk-button-success"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
+                    break;
+                case 9 :
                     $button = array();
                     $sql = "SELECT * FROM {$_TABLES['ss_services']} WHERE button=1 ORDER BY name";
                     $result = DB_query($sql);
@@ -313,9 +321,12 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
 
 function plugin_social_share_override_socialshare()
 {
-    global $_SS_CONF;
+    global $_SS_CONF,$LANG_SS00;
 
-    return ($_SS_CONF['replace_ss']);
+    if ( $_SS_CONF['replace_ss']) {
+        return $LANG_SS00['pi_name'];
+    }
+    return '';
 }
 
 function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
