@@ -201,6 +201,8 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
 
     if ( isset($_SS_CONF['story_enabled'] ) && $_SS_CONF['story_enabled'] == 0 ) return;
 
+    if ( $_SS_CONF['button_style'] == 9 ) $_SS_CONF['placement'] = 1;
+
     $buttons[1]['name'] = 'sm-addtoany.png';
     $buttons[1]['width'] = '16';
     $buttons[1]['height'] = '16';
