@@ -221,7 +221,7 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
                 break;
             case 1 :
                 if ( $sd != 'index' ) return;
-                if ( $_SS_CONF['button_style'] == 7 ) {
+                if ( $_SS_CONF['button_style'] == 9 ) {
                     $T->set_file (array ('storyshare' => 'sharebuttons.thtml'));
                 } else {
                     $T->set_file (array ('storyshare' => 'story-share-body.thtml'));
