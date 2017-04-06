@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="uk-form-row">
-            <label class="uk-form-label" for="click">{$LANG_SS[click_prompt]}</label>
+            <label class="uk-form-label" for="click">{$LANG_SS00[click_prompt]}</label>
             <div class="uk-form-control">
               <select class="only-story-enabled" name="click">
                 <option value="0" {c_0_selected}>{$LANG_SS00[false]}</option>
