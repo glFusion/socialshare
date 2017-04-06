@@ -60,9 +60,9 @@ if (isset ($_POST['mode'])) {
 
 function _services_edit()
 {
-    global $_CONF, $_SS_CONF, $_TABLES;
+    global $_CONF, $_SS_CONF, $_TABLES, $LANG_SS_SERVICES;
 
-    $class=0;
+    $class = 0;
 
     $T = new Template($_CONF['path'] . 'plugins/socialshare/templates/admin/');
     $T->set_file (array ('services' => 'services.thtml'));
@@ -99,7 +99,7 @@ function _services_edit()
         $T->set_var(array(
             'id'          => $row['id'],
             'name'        => $row['name'],
-            'description' => $row['description'],
+            'description' => isset($LANG_SS_SERVICES[$row['code']]) ? $LANG_SS_SERVICES[$row['code']] : '',
             'priority_checked' => $priorityChecked,
             'excluded_checked' => $excludedChecked,
             'button_checked'   => $buttonChecked,
