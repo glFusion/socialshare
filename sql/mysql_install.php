@@ -45,7 +45,6 @@ $_SQL['services'] = "CREATE TABLE {$_TABLES['ss_services']} (
   excluded tinyint(4) NOT NULL DEFAULT '0',
   button tinyint(4) NOT NULL DEFAULT '0',
   code varchar(128) NOT NULL DEFAULT '',
-  description text NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY code (code)
 ) Engine=MyISAM;
