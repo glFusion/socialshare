@@ -1,0 +1,107 @@
+|AIM                 |Aol Instant Message Button |
+|Amazon Wish List    |Amazon Wish List Button |
+|AOL Mail            |AOL Mail Button |
+|Baidu               |Baidu Button |
+|Balatarin           |Balatarin Button - A Persian language social and political link-sharing website aimed primarily at Iranian audiences. |
+|BibSonomy           |BibSonomy Button - A social bookmarking and publication sharing system. |
+|Bitty Browser       |Bitty Browser Button - Helps you keep track of your favorite Web stuff by enalbing navigable windows directly within your favorite sites. |
+|Blinklist           |Blinklist Button - Blinklist provides information and reviews on web and mobile start-ups. |
+|Blogger Post        |Blogger Post Button - Blogger is a blog-publishing service. |
+|BlogMarks           |BlogMarks Button - A social bookmarks manager that allows categorization via custom tags. |
+|Bookmarks.fr        |Bookmarks.fr Button - Bookmarks on your site targeted at French users. |
+|Box.net             |Box.net Button - Share via Box.net |
+|BuddyMarks          |BuddyMarks Button - An Online Bookmark Manager. |
+|Buffer              |Buffer Button - An application for the web designed to manage accounts in social networks, by allowing a user to schedule posts to Twitter, Facebook and other social networks. |
+|Care2 News          |Care2 News Button - A social networking site designed to connect activists from around the world with other individuals, organizations and businesses making an impact. |
+|CiteULike           |CiteULike Button - Web service which allows users to save and share citations to academic papers. |
+|Copy Link           |Copy Link Button - Copies the content link to your clipboard. |
+|Delicious           |Delicious Button - A social bookmarking site for storing, sharing and discovering web bookmarks. |
+|Design Float        |Design Float Button - Web design news and tips. |
+|Diary.Ru            |Diary.Ru Button - Online diary in RuNet. |
+|Diaspora            |Diaspora Button - A nonprofit distributed social network based on the free Diaspora software. |
+|Digg                |Digg Button - A news aggregator. |
+|Diigo               |Diigo Button - A social bookmarking website that allows signed-up users to bookmark and tag Web pages. Additionally, it allows users to highlight any part of a webpage and attach sticky notes to specific highlights or to a whole page. |
+|Douban              |Douban Button - A Chinese social networking service website allowing registered users to record information and create content related to film, books, music, recent events and activities in Chinese cities. |
+|Draugiem            |Draugiem Button - A social networking website that is the largest social networking website in Latvia. The website plays an important role in the everyday life of internet users in Latvia, and is frequently used as a communication tool instead of e-mail. |
+|DZone               |DZone Button - Serves technology professionals with the knowledge, tools, and strategies they need to build the future. |
+|Email               |Email Button - Send content link / description via email. |
+|Evernote            |Evernote Button - Send content link / description to Evernote. |
+|Facebook            |Facebook Button - Post content to Facebook |
+|Facebook Messenger  |Facebook Messenger Button - Send content link / description via Facebook Messenger. |
+|Fark                |Fark Button - Share via Fark - Allows members to comment on a daily batch of news articles and other items from various websites. |
+|Flipboard           |Flipboard Button - A news aggregation and social network aggregation service. |
+|Folkd               |Folkd Button - A social bookmarking service. |
+|Google+             |Google+ Button - Share via Google Plus |
+|Google Bookmarks    |Google Bookmarks Button - Save to Google bookmarks |
+|Google Classroom    |Google Classroom Button - Share via Google Classroom |
+|Google Gmail        |Google Gmail Button - Send content link / description via Gmail. |
+|Hacker News         |Hacker News Button - A social news website focusing on computer science and entrepreneurship. |
+|Hatena              |Hatena Button - A free blogging service. |
+|Instapaper          |Instapaper Button - a bookmarking service that allows web content to be saved so it can be read later on a different device, such as an e-reader, smartphone, tablet. |
+|Jamespot            |Jamespot Button - A French corporate social network. |
+|Kakao               |Kakao Button - A South Korean internet company /server. |
+|Kindle It           |Kindle It Button - Lets you send web articles to your Kindle app or device for a better reading experience. |
+|Known               |Known Button - A social learning platform |
+|Line                |Line Button - Free Messaging, Whenever, Wherever |
+|LinkedIn            |LinkedIn Button -  a business and employment-oriented social networking service. |
+|LiveJournal         |LiveJournal Button -  A social networking service where Internet users can keep a blog, journal or diary. |
+|Mail.Ru             |Mail.Ru Button - Russian Social Networking Site. |
+|Mendeley            |Mendeley Button - A site for sharing research papers, discovering research data and collaborating online. |
+|Meneame             |Meneame Button - A Spanish social news website based on community participation, made for users to discover and share content on the Internet, by submitting links, which are voted and commented upon. |
+|Mixi                |Mixi Button - An online Japanese social networking service. |
+|MySpace             |MySpace Button - A social networking website offering an interactive, user-submitted network of friends, personal profiles, blogs, groups, photos, music, and videos. |
+|Netvouz             |Netvouz Button - A social bookmarking service that allows you to save your favorite links online and access them from any computer, wherever you are. |
+|NewsVine            |NewsVine Button - A community-powered, collaborative journalism news website which draws content from its users and syndicated content from mainstream sources such as The Associated Press. |
+|NUjij               |NUjij Button - Dutch social sharing site. |
+|Odnoklassniki       |Odnoklassniki Button - A social network service for classmates and old friends. It is popular in the Russian Federation and former Soviet Republics. |
+|Oknotizie           |Oknotizie Button - Italian Social Sharing |
+|Outlook.com         |Outlook.com Button - Share via Outlook.com |
+|Papaly              |Papaly Button - Personalized Social Bookmarking. |
+|Pinboard            |Pinboard Button - Social bookmarking for introverts. |
+|Pinterest           |Pinterest Button - A free website where users can upload, save, sort, and manage images—known as pins—and other media content. |
+|Plurk               |Plurk Button - A free social networking and micro-blogging service that allows users to send updates (otherwise known as plurks) through short messages or links. |
+|Pocket              |Pocket Button - Put articles, videos or pretty much anything into Pocket. |
+|Polyvore            |Polyvore Button - A community-powered social commerce website. |
+|Print               |Print Button - Print the content. |
+|PrintFriendly       |PrintFriendly Button - Make any web page print friendly. |
+|Protopage Bookmarks |Protopage Bookmarks Button - An RSS reader, virtual desktop, and Internet start page |
+|Pusha               |Pusha Button - A site where members determine the content by posting and push (vote for) links. |
+|Qzone               |Qzone Button - A Chinese social networking website. |
+|Reddit              |Reddit Button - A social news aggregation, web content rating, and discussion website. |
+|Rediff MyPage       |Rediff MyPage Button - An Indian news, information, entertainment and shopping web portal. |
+|Refind              |Refind Button - Discover, save, and read what’s really worth your attention. |
+|Renren              |Renren Button - A Chinese social networking service. |
+|Segnalo             |Segnalo Button - An Italian social bookmarking site. |
+|Sina Weibo          |Sina Weibo Button - A Chinese microblogging (weibo) website. |
+|SiteJot             |SiteJot Button - A free online bookarmk manager / bookmark organizer. |
+|Skype               |Skype Button -  An instant messaging app that provides online text message and video chat services. |
+|Slashdot            |Slashdot Button - A social news website |
+|SMS                 |SMS Button - Send content link via SMS. |
+|StumbleUpon         |StumbleUpon Button - a discovery engine (a form of web search engine) that finds and recommends web content to its users. Its features allow users to discover and rate Web pages, photos and videos that are personalized to their tastes and interests using peer-sourcing and social-networking principles. |
+|Stumpedia           |Stumpedia Button - Search for people by people. |
+|Svejo               |Svejo Button - Bulgarian social news site. |
+|Symbaloo Feeds      |Symbaloo Feeds Button - Discover and create your own feeds. |
+|Telegram            |Telegram Button - Share via Telegram Messaging. |
+|Trello              |Trello Button - Share to your Trello boards. |
+|Tuenti              |Tuenti Button - Spain based social media. |
+|Tumblr              |Tumblr Button - A microblogging and social networking website. |
+|Twiddla             |Twiddla Button - Team Whiteboarding. |
+|Twitter             |Twitter Button - An online news and social networking service where users post and interact with messages, tweets. |
+|Viadeo              |Viadeo Button |
+|Viber               |Viber Button -  A free, cross-platform instant messaging and voice over IP (VoIP) application |
+|VK                  |VK Button - The largest European online social media and social networking service. |
+|Wanelo              |Wanelo Button - A digital mall where people can discover and buy products on the internet. |
+|WeChat              |WeChat Button - A Chinese social media (instant messaging, commerce and payment services) site. |
+|WhatsApp            |WhatsApp Button - A freeware, cross-platform and end-to-end encrypted instant messaging application for smartphones |
+|WordPress           |WordPress Button - Share to WordPress.org. |
+|Wykop               |Wykop Button - A Polish social networking internet service. |
+|XING                |XING Button - A career-oriented social networking site for enabling a small-world network for professionals. |
+|Yahoo Bookmarks     |Yahoo Bookmarks Button - Allows you to store your bookmarks on Yahoo and access them from anywhere with an Internet connection. |
+|Yahoo Mail          |Yahoo Mail Button - Share via Yahoo Mail. |
+|Yahoo Messenger     |Yahoo Messenger Button - Share via Yahoo Messenger |
+|Yoolink             |Yoolink Button - A customizable communication platform that enables you to create a corporate social network, to easily manage external communities or to boost your team productivity. |
+|YouMob              |YouMob Button - Live mobs on the web. |
+|Yummly              |Yummly Button - Personalized Recipe Recommendations and Search. |
+
+
+
