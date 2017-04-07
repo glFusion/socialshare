@@ -127,7 +127,7 @@ function _ss_saveSettings()
         $settings['click'] = isset($_POST['click']) ? COM_applyFilter($_POST['click'],true) : 0;
         $settings['delay'] = isset($_POST['delay']) ? COM_applyFilter($_POST['delay'],true) : 400;
         $settings['num_services'] = isset($_POST['num_services']) ? COM_applyFilter($_POST['num_services'],true) : 10;
-        $settings['placement'] = isset($_POST['placement']) ? COM_applyFilter($_POST['placement'],true) : 0;
+//        $settings['placement'] = isset($_POST['placement']) ? COM_applyFilter($_POST['placement'],true) : 0;
     }
     // social share options
     $settings['replace_ss'] = isset($_POST['replace_ss']) ? 1 : 0;
@@ -135,6 +135,7 @@ function _ss_saveSettings()
         $settings['more'] = isset($_POST['more']) ? COM_applyFilter($_POST['more'],true) : 1;
         $settings['sharebutton_style']   = isset($_POST['sharebutton_style']) ? COM_applyFilter($_POST['sharebutton_style'],true) : 1;
         $settings['share_counters'] = isset($_POST['share_counters']) ? COM_applyFilter($_POST['share_counters'],true) : 0;
+        $settings['ss_summary'] = isset($_POST['ss_summary']) ? COM_applyFilter($_POST['ss_summary'],true) : 1;
     }
     foreach ($settings AS $name => $value ) {
         DB_query("UPDATE {$_TABLES['ss_config']} SET conf_value = '".(int) $settings[$name]."' WHERE conf_name='".$name."'");
@@ -206,6 +207,8 @@ $T->set_var('button'.$_SS_CONF['button_style'].'_checked', ' checked="checked" '
 $T->set_var('sharebutton'.$_SS_CONF['sharebutton_style'].'_checked',' checked="checked" ');
 $T->set_var('sc_0_selected', $_SS_CONF['share_counters'] == 0 ? ' selected="selected" ' : '');
 $T->set_var('sc_1_selected', $_SS_CONF['share_counters'] == 1 ? ' selected="selected" ' : '');
+$T->set_var('sss_0_selected', $_SS_CONF['ss_summary'] == 0 ? ' selected="selected" ' : '');
+$T->set_var('sss_1_selected', $_SS_CONF['ss_summary'] == 1 ? ' selected="selected" ' : '');
 
 
 $T->set_var(array(

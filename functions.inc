@@ -57,6 +57,7 @@ $result = DB_query("SELECT * FROM {$_TABLES['ss_config']}");
 while ( $row = DB_fetchArray($result) ) {
     $_SS_CONF[$row['conf_name']] = $row['conf_value'];
 }
+$_SS_CONF['placement'] = 0; // always use story icons
 
 function plugin_chkVersion_socialshare() {
     global $_SS_CONF;
@@ -201,8 +202,6 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
 
     if ( isset($_SS_CONF['story_enabled'] ) && $_SS_CONF['story_enabled'] == 0 ) return;
 
-    if ( $_SS_CONF['button_style'] == 9 ) $_SS_CONF['placement'] = 1;
-
     $buttons[1]['name'] = 'sm-addtoany.png';
     $buttons[1]['width'] = '16';
     $buttons[1]['height'] = '16';
@@ -216,25 +215,8 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
         $story_title = $template->get_var('story_title');
 
         $T = new Template($_CONF['path'] . 'plugins/socialshare/templates/');
-        switch ( $_SS_CONF['placement'] ) {
-            case 0 :
-                $T->set_file (array ('storyshare' => 'story-share-meta.thtml'));
-                $location = 'plugin_icon_vars';
-                break;
-            case 1 :
-                if ( $sd != 'index' ) return;
-                if ( $_SS_CONF['button_style'] == 9 ) {
-                    $T->set_file (array ('storyshare' => 'sharebuttons.thtml'));
-                } else {
-                    $T->set_file (array ('storyshare' => 'story-share-body.thtml'));
-                }
-                $location = 'plugin_footer_vars';
-                break;
-            default :
-                $T->set_file (array ('storyshare' => 'story-share-meta.thtml'));
-                $location = 'plugin_icon_vars';
-                break;
-        }
+        $T->set_file (array ('storyshare' => 'story-share-meta.thtml'));
+        $location = 'plugin_icon_vars';
 
         if ( $article_url != '' ) {
             $T->set_var('url', $article_url );
@@ -266,47 +248,6 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
                 case 8 :
                     $T->set_var('share_button','<button onclick="return false;" class="uk-button uk-button-success"><i class="uk-icon uk-icon-small uk-icon-share-alt"></i>&nbsp;'.$LANG_SS00['share'].'</button>');
                     break;
-                case 9 :
-                    $button = array();
-                    $sql = "SELECT * FROM {$_TABLES['ss_services']} WHERE button=1 ORDER BY name";
-                    $result = DB_query($sql);
-                    while ( $row = DB_fetchArray($result) ) {
-                        $button[] = array('code' => $row['code'],'priority' => $row['priority'],'excluded' => $row['excluded']);
-                    }
-                    if ( count($button) > 0 || $_SS_CONF['more'] == 1 ) {
-                        switch ($_SS_CONF['sharebutton_style']) {
-                            case 1 : // 32
-                                $T->set_var('share_button_size',32);
-                                break;
-                            case 2 : // 64
-                                $T->set_var('share_button_size',64);
-                                break;
-                            case 3 : // 16
-                                $T->set_var('share_button_size',16);
-                                break;
-                            default :
-                                $T->set_var('share_button_size',32);
-                        }
-                        $T->set_block('storyshare', 'ShareButtons', 'sButtons');
-                        foreach ($button AS $bt ) {
-                            $T->set_var('button', $bt['code']);
-                            if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 ) {
-                                $T->set_var('share_counters',true);
-                            } else {
-                                $T->unset_var('share_counters');
-                            }
-                            $T->parse('sButtons', 'ShareButtons',true);
-                        }
-                        if ( $_SS_CONF['more'] ) {
-                            $T->set_var('more',true);
-                            if ( $_SS_CONF['share_counters'] ) {
-                                $T->set_var('more_share_counters',true);
-                            } else {
-                                $T->unset_var('more_share_counters');
-                            }
-                        }
-                    }
-                    break;
                 default :
                     $T->set_var('share_button','<i class="tm-meta-icon uk-icon-small uk-icon-hover uk-icon-share-square"></i>');
                     break;
@@ -314,8 +255,55 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
 
             $T->parse('output', 'storyshare');
             $replacementText = $T->finish($T->get_var('output'));
-
             $template->set_var($location, $replacementText,false,true);
+
+            if ( $_SS_CONF['ss_summary'] == 1 && $sd == 'index' ) {
+                $SS = new Template($_CONF['path'] . 'plugins/socialshare/templates/');
+                $SS->set_file (array ('storyshare' => 'sharebuttons.thtml'));
+                $location = 'plugin_footer_vars';
+                $button = array();
+                $sql = "SELECT * FROM {$_TABLES['ss_services']} WHERE button=1 ORDER BY name";
+                $result = DB_query($sql);
+                while ( $row = DB_fetchArray($result) ) {
+                    $button[] = array('code' => $row['code'],'priority' => $row['priority'],'excluded' => $row['excluded']);
+                }
+                if ( count($button) > 0 || $_SS_CONF['more'] == 1 ) {
+                    switch ($_SS_CONF['sharebutton_style']) {
+                        case 1 : // 32
+                            $SS->set_var('share_button_size',32);
+                            break;
+                        case 2 : // 64
+                            $SS->set_var('share_button_size',64);
+                            break;
+                        case 3 : // 16
+                            $SS->set_var('share_button_size',16);
+                            break;
+                        default :
+                            $SS->set_var('share_button_size',32);
+                    }
+                    $SS->set_block('storyshare', 'ShareButtons', 'sButtons');
+                    foreach ($button AS $bt ) {
+                        $SS->set_var('button', $bt['code']);
+                        if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 ) {
+                            $SS->set_var('share_counters',true);
+                        } else {
+                            $SS->unset_var('share_counters');
+                        }
+                        $SS->parse('sButtons', 'ShareButtons',true);
+                    }
+                    if ( $_SS_CONF['more'] ) {
+                        $SS->set_var('more',true);
+                        if ( $_SS_CONF['share_counters'] ) {
+                            $SS->set_var('more_share_counters',true);
+                        } else {
+                            $SS->unset_var('more_share_counters');
+                        }
+                    }
+                }
+                $SS->parse('output', 'storyshare');
+                $replacementText = $SS->finish($SS->get_var('output'));
+                $template->set_var('plugin_footer_vars', $replacementText,false,true);
+            }
         }
     }
     return;
