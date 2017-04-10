@@ -37,7 +37,6 @@ The Social Share Buttons have the ability to display share counts. It is importa
 *  Facebook
 *  LinkedIn
 *  Pinterest
-*  Reddit
 *  Tumblr
 
 ## LICENSE
