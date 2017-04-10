@@ -50,14 +50,29 @@ if (file_exists($langfile)) {
 }
 
 // initialize configuration
+// defaults
+$_SS_CONF = array(
+    'story_enabled' => 1,
+    'delay'         => 400,
+    'click'         => 0,
+    'num_services'  => 6,
+    'button_style'  => 1,
+    'replace_ss'    => 1,
+    'ss_summary'    => 1,
+    'more'          => 1,
+    'sharebutton_style' => 1,
+    'share_counters'    => 0
+);
 
-$_SS_CONF = array();
 require_once $_CONF['path'].'plugins/socialshare/socialshare.php';
 $result = DB_query("SELECT * FROM {$_TABLES['ss_config']}");
 while ( $row = DB_fetchArray($result) ) {
     $_SS_CONF[$row['conf_name']] = $row['conf_value'];
 }
 $_SS_CONF['placement'] = 0; // always use story icons
+
+// reddit removed
+$share_count_support = array('facebook','linkedin','pinterest','tumblr');
 
 function plugin_chkVersion_socialshare() {
     global $_SS_CONF;
@@ -198,7 +213,7 @@ function plugin_isOnPageLoad_socialshare()
 
 function plugin_templatesetvars_socialshare($templatename, &$template)
 {
-    global $_CONF, $_SS_CONF, $_USER, $_TABLES, $LANG_SS00;
+    global $share_count_support, $_CONF, $_SS_CONF, $_USER, $_TABLES, $LANG_SS00;
 
     if ( isset($_SS_CONF['story_enabled'] ) && $_SS_CONF['story_enabled'] == 0 ) return;
 
@@ -284,7 +299,7 @@ function plugin_templatesetvars_socialshare($templatename, &$template)
                     $SS->set_block('storyshare', 'ShareButtons', 'sButtons');
                     foreach ($button AS $bt ) {
                         $SS->set_var('button', $bt['code']);
-                        if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 ) {
+                        if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 && in_array($bt['code'],$share_count_support) ) {
                             $SS->set_var('share_counters',true);
                         } else {
                             $SS->unset_var('share_counters');
@@ -321,7 +336,7 @@ function plugin_social_share_override_socialshare()
 
 function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
 {
-    global $_TABLES, $_CONF, $_SS_CONF, $LANG_SS00;
+    global $share_count_support, $_TABLES, $_CONF, $_SS_CONF, $LANG_SS00;
 
     if ( $_SS_CONF['replace_ss'] != 1 ) return '';
 
@@ -362,7 +377,7 @@ function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
 
         foreach ($button AS $bt ) {
             $T->set_var('button', $bt['code']);
-            if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 ) {
+            if ( $_SS_CONF['share_counters'] == 1 && $bt['priority'] != -1 && $bt['excluded'] != -1 && in_array($bt['code'],$share_count_support) ) {
                 $T->set_var('share_counters',true);
             } else {
                 $T->unset_var('share_counters');
