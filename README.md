@@ -20,7 +20,7 @@ AddToAny just works. No registration, and no user accounts to manage.
 *  Loads asynchronously so your content always loads before or in parallel with the AddToAny JavaScript
 *  Supports theme features such as HTML5, widgets, infinite scroll, post formats
 *  No signup, no login, no account necessary
-*  AddToAny gives users the choice in sharing from a serviceâs native app or from a web app. For example, choose between Twitter's native app or Twitter's mobile web app
+*  AddToAny gives users the choice in sharing from a service's native app or from a web app. For example, choose between Twitter's native app or Twitter's mobile web app
 *  AddToAny' SVG icons are super-lightweight and pixel-perfect at any size, and AddToAny' responsive share menu fits on all displays
 *  Automatic AMP (Accelerated Mobile Pages) support for social share buttons on AMP pages
 
