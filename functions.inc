@@ -158,7 +158,7 @@ function plugin_getheadercode_socialshare()
     $http_or_https = ($_CONF['cookiesecure'] ? 'https://' : 'http://');
 
     $outputHandle = outputHandler::getInstance();
-
+    $rc = 1;
     if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
         $cacheFile = $_CONF['path_html'].'socialshare/cache/page.js';
         if ( !@file_exists($cacheFile)) {
