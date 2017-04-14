@@ -233,7 +233,16 @@ function plugin_getheadercss_socialshare() {
 
 function plugin_isOnPageLoad_socialshare()
 {
-    $script = "$(document).ready (function () { $.each(\$item, function( index, value ) { a2a.init('page'); }); });";
+    global $_SS_CONF;
+
+    $script = '';
+
+    if ( $_SS_CONF['story_enabled'] ) {
+        $script .= "$(document).ready (function () { $.each(\$item, function( index, value ) { a2a.init('page'); }); });";
+    }
+    if ( $_SS_CONF['ss_summary'] ) {
+        $script .= "$(document).ready (function () { $.each(\$item, function( index, value ) { a2a.init('page'); }); });";
+    }
     return $script;
 }
 
