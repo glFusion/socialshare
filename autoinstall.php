@@ -120,7 +120,7 @@ function plugin_autouninstall_socialshare ()
         /* give the full name of the block, including 'phpblock_', etc */
         'php_blocks' => array(),
         /* give all vars with their name */
-        'vars'=> array()
+        'vars'=> array('ss_cache_refresh')
     );
     return $out;
 }
