@@ -160,7 +160,7 @@ function plugin_getheadercode_socialshare()
     if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
         $cacheFile = $_CONF['path_html'].'socialshare/cache/page.js';
         if ( !@file_exists($cacheFile)) {
-            plugin_runScheduledTask_socialshare();
+            socialshare_refresh_cache();
         }
         clearstatcache();
         if ( @file_exists($cacheFile)) {
@@ -190,8 +190,8 @@ function plugin_getheadercode_socialshare()
             $excluded_services .= "\"".$row['code']."\"";
         }
     }
-
-    if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
+    $cacheFile = $_CONF['path_html'].'socialshare/cache/page.js';
+    if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] && @file_exists($cacheFile) ) {
         $static_server = $_CONF['site_url'].'/socialshare/cache';
     } else {
         $static_server = 'https://static.addtoany.com/menu';
@@ -419,9 +419,11 @@ function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
 }
 
 function socialshare_refresh_cache() {
-    global $_CONF;
+    global $_CONF, $_TABLES, $_VARS, $_SS_CONF;
 
-	$contents = getRemoteFile( 'https://www.addtoany.com/ext/updater/files_list/' );
+    $http_or_https = ($_CONF['cookiesecure'] ? 'https://' : 'http://');
+
+	$contents = ss_getRemoteFile( $http_or_https . 'www.addtoany.com/ext/updater/files_list/' );
 	$file_urls = explode( "\n", $contents, 20 );
     $upload_dir = $_CONF['path_html'].'socialshare/cache/';
 	if ( count( $file_urls ) > 0 ) {
@@ -432,6 +434,8 @@ function socialshare_refresh_cache() {
 			$data = getRemoteFile( $file_url );
             $rc = writeFile_lck($upload_dir.$file_name,'',$data,'socialshare.lck');
 		}
+		$now = time();
+		DB_query("REPLACE INTO {$_TABLES['vars']} (name,value) VALUES('ss_cache_refresh',{$now});");
 	}
 }
 
@@ -440,11 +444,42 @@ function plugin_runScheduledTask_socialshare()
 {
     global $_CONF, $_TABLES, $_SS_CONF, $_VARS;
 
-COM_errorLog("SocialShare: Running refresh cache");
-
-    socialshare_refresh_cache();
+    if ( isset($_VARS['ss_cache_refresh']) ) {
+        $now = time();
+        $delta = $now - $_VARS['ss_cache_refresh'];
+        if ( $delta > 86400 ) {
+           COM_errorLog("SocialShare: Running refresh cache");
+           socialshare_refresh_cache();
+        }
+    }
     return;
 }
+
+function ss_getRemoteFile($url)
+{
+    global $_CONF;
+
+    require_once $_CONF['path'] . 'lib/http/http.php';
+
+    $http=new http_class;
+    $http->timeout=0;
+    $http->data_timeout=0;
+    $http->debug=0;
+    $http->html_debug=0;
+    $http->user_agent = 'glFusion/' . GVERSION;
+
+    $error = $http->GetRequestArguments($url,$arguments);
+    $error=$http->Open($arguments);
+    $error=$http->SendRequest($arguments);
+    if ( $error == "" ) {
+        $error=$http->ReadWholeReplyBody($body);
+        if ( $error == "" || strlen($body) > 0 ) {
+            return $body;
+        }
+    }
+    return '';
+}
+
 
 function getRemoteFile($url, $post = null) {
     if ( function_exists('curl_init') ) {
