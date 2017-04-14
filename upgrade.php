@@ -44,6 +44,11 @@ function socialshare_upgrade()
         case '0.5.0' :
             DB_query("INSERT INTO {$_TABLES['ss_config']} (`conf_name`, `conf_value`) VALUES ('ss_summary', '1');",1);
 
+        case '0.5.1' :
+
+        case '1.0.0' :
+            DB_query("INSERT INTO {$_TABLES['ss_config']} (`conf_name`, `conf_value`) VALUES('cache', '0');",1);
+
         default:
             DB_query("UPDATE {$_TABLES['plugins']} SET pi_version='".$_SS_CONF['pi_version']."',pi_gl_version='".$_SS_CONF['gl_version']."' WHERE pi_name='socialshare' LIMIT 1");
             break;

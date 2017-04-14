@@ -31,7 +31,7 @@ if (!defined ('GVERSION')) {
 
 $_SS_CONF['pi_name']           = 'socialshare';
 $_SS_CONF['pi_display_name']   = 'SocialShare';
-$_SS_CONF['pi_version']        = '1.0.0';
+$_SS_CONF['pi_version']        = '1.1.0';
 $_SS_CONF['gl_version']        = '1.6.6';
 $_SS_CONF['pi_url']            = 'https://www.glfusion.org';
 

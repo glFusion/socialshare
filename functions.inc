@@ -61,7 +61,8 @@ $_SS_CONF = array(
     'ss_summary'    => 1,
     'more'          => 1,
     'sharebutton_style' => 1,
-    'share_counters'    => 0
+    'share_counters'    => 0,
+    'cache'         => 0
 );
 
 require_once $_CONF['path'].'plugins/socialshare/socialshare.php';
@@ -155,8 +156,21 @@ function plugin_getheadercode_socialshare()
     $excluded_services = '';
 
     $outputHandle = outputHandler::getInstance();
-    $outputHandle->addLinkScript('//static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
 
+    if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
+        $cacheFile = $_CONF['path_html'].'socialshare/cache/page.js';
+        if ( !@file_exists($cacheFile)) {
+            plugin_runScheduledTask_socialshare();
+        }
+        clearstatcache();
+        if ( @file_exists($cacheFile)) {
+            $outputHandle->addLinkScript($_CONF['site_url'].'/socialshare/cache/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
+        } else {
+            $outputHandle->addLinkScript('https://static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
+        }
+    } else {
+        $outputHandle->addLinkScript('https://static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
+    }
     $result = DB_query("SELECT code, priority, excluded FROM {$_TABLES['ss_services']}");
     while ( $row = DB_fetchArray($result) ) {
         if ( $row['priority'] ) {
@@ -177,14 +191,20 @@ function plugin_getheadercode_socialshare()
         }
     }
 
-    $adScript = "
-    var a2a_config = a2a_config || {};
-        a2a_config.delay = ".$_SS_CONF['delay'].";
-        a2a_config.onclick = ".($_SS_CONF['click'] ? 1 : 0) .";
-        a2a_config.num_services = ". $_SS_CONF['num_services'] . ";
-        a2a_config.prioritize = [ ".$compact_services." ];
-        a2a_config.exclude_services = [ ".$excluded_services." ];
-    ";
+    if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
+        $static_server = $_CONF['site_url'].'/socialshare/cache';
+    } else {
+        $static_server = 'https://static.addtoany.com/menu';
+    }
+
+    $adScript = "var a2a_config = a2a_config || {};
+a2a_config.static_server =\"" . $static_server . "\";
+a2a_config.delay = ".$_SS_CONF['delay'].";
+a2a_config.onclick = ".($_SS_CONF['click'] ? 1 : 0) .";
+a2a_config.num_services = ". $_SS_CONF['num_services'] . ";
+a2a_config.prioritize = [ ".$compact_services." ];
+a2a_config.exclude_services = [ ".$excluded_services." ];
+";
 
     $outputHandle->addScript($adScript);
 
@@ -397,4 +417,52 @@ function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
     }
     return $retval;
 }
+
+function socialshare_refresh_cache() {
+    global $_CONF;
+
+	$contents = getRemoteFile( 'https://www.addtoany.com/ext/updater/files_list/' );
+	$file_urls = explode( "\n", $contents, 20 );
+    $upload_dir = $_CONF['path_html'].'socialshare/cache/';
+	if ( count( $file_urls ) > 0 ) {
+		for ( $i = 0; $i < count( $file_urls ); $i++ ) {
+			// Download files
+			$file_url = trim( $file_urls[ $i ] );
+			$file_name = substr( strrchr( $file_url, '/' ), 1, 99 );
+			$data = getRemoteFile( $file_url );
+            $rc = writeFile_lck($upload_dir.$file_name,'',$data,'socialshare.lck');
+		}
+	}
+}
+
+
+function plugin_runScheduledTask_socialshare()
+{
+    global $_CONF, $_TABLES, $_SS_CONF, $_VARS;
+
+COM_errorLog("SocialShare: Running refresh cache");
+
+    socialshare_refresh_cache();
+    return;
+}
+
+function getRemoteFile($url, $post = null) {
+    if ( function_exists('curl_init') ) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        if(!empty($post)) {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        }
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+    return '';
+}
+
 ?>

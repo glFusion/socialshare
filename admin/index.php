@@ -127,7 +127,7 @@ function _ss_saveSettings()
         $settings['click'] = isset($_POST['click']) ? COM_applyFilter($_POST['click'],true) : 0;
         $settings['delay'] = isset($_POST['delay']) ? COM_applyFilter($_POST['delay'],true) : 400;
         $settings['num_services'] = isset($_POST['num_services']) ? COM_applyFilter($_POST['num_services'],true) : 10;
-//        $settings['placement'] = isset($_POST['placement']) ? COM_applyFilter($_POST['placement'],true) : 0;
+        $settings['cache'] = isset($_POST['cache']) ? 1 : 0;
     }
     // social share options
     $settings['replace_ss'] = isset($_POST['replace_ss']) ? 1 : 0;
@@ -209,7 +209,14 @@ $T->set_var('sc_0_selected', $_SS_CONF['share_counters'] == 0 ? ' selected="sele
 $T->set_var('sc_1_selected', $_SS_CONF['share_counters'] == 1 ? ' selected="selected" ' : '');
 $T->set_var('sss_0_selected', $_SS_CONF['ss_summary'] == 0 ? ' selected="selected" ' : '');
 $T->set_var('sss_1_selected', $_SS_CONF['ss_summary'] == 1 ? ' selected="selected" ' : '');
+$T->set_var('cache_checked', $_SS_CONF['cache'] == 1 ? ' checked="checked" ' : '');
 
+
+if ( function_exists('curl_init') ) {
+    $T->set_var('cache_available',true);
+} else {
+    $T->unset_var('cache_available');
+}
 
 $T->set_var(array(
     'services'  => _services_edit(),

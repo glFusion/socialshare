@@ -42,6 +42,7 @@ $_SQL_DATA['config'] = array(
     "INSERT INTO {$_TABLES['ss_config']} (`conf_name`, `conf_value`) VALUES('more', '1');",
     "INSERT INTO {$_TABLES['ss_config']} (`conf_name`, `conf_value`) VALUES('sharebutton_style', '1');",
     "INSERT INTO {$_TABLES['ss_config']} (`conf_name`, `conf_value`) VALUES('share_counters', '0');",
+    "INSERT INTO {$_TABLES['ss_config']} (`conf_name`, `conf_value`) VALUES('cache', '0');",
 );
 
 $_SQL_DATA['services'] = array(

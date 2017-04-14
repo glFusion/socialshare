@@ -51,6 +51,17 @@
               </span>
             </div>
           </div>
+{!if cache_available}
+          <div class="uk-form-row">
+            <label class="uk-form-label" for="cache">{$LANG_SS00[cache_prompt]}</label>
+            <div class="uk-form-control slider_checkbox">
+              <input id="cache" class="onoff" type="checkbox" name="cache" {cache_checked} />
+              <span class="uk-form-inline-help">
+                &nbsp;{$LANG_SS00[cache_help]}
+              </span>
+            </div>
+          </div>
+{!endif}
         </fieldset>
       </div>
 
