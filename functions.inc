@@ -154,6 +154,8 @@ function plugin_getheadercode_socialshare()
     $firstEX = 0;
     $compact_services = '';
     $excluded_services = '';
+    $cacheLocal = 0;
+    $http_or_https = ($_CONF['cookiesecure'] ? 'https://' : 'http://');
 
     $outputHandle = outputHandler::getInstance();
 
@@ -165,11 +167,12 @@ function plugin_getheadercode_socialshare()
         clearstatcache();
         if ( @file_exists($cacheFile)) {
             $outputHandle->addLinkScript($_CONF['site_url'].'/socialshare/cache/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
+            $cacheLocal = 1;
         } else {
-            $outputHandle->addLinkScript('https://static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
+            $outputHandle->addLinkScript($http_or_https.'static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
         }
     } else {
-        $outputHandle->addLinkScript('https://static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
+        $outputHandle->addLinkScript($http_or_https.'static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
     }
     $result = DB_query("SELECT code, priority, excluded FROM {$_TABLES['ss_services']}");
     while ( $row = DB_fetchArray($result) ) {
@@ -194,11 +197,15 @@ function plugin_getheadercode_socialshare()
     if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] && @file_exists($cacheFile) ) {
         $static_server = $_CONF['site_url'].'/socialshare/cache';
     } else {
-        $static_server = 'https://static.addtoany.com/menu';
+        $static_server = $http_or_https.'static.addtoany.com/menu';
     }
 
-    $adScript = "var a2a_config = a2a_config || {};
-a2a_config.static_server =\"" . $static_server . "\";
+    $adScript = "var a2a_config = a2a_config || {};";
+    if ( $cacheLocal ) {
+        $adScript .= "
+a2a_config.static_server =\"" . $static_server . "\";";
+    }
+    $adScript .= "
 a2a_config.delay = ".$_SS_CONF['delay'].";
 a2a_config.onclick = ".($_SS_CONF['click'] ? 1 : 0) .";
 a2a_config.num_services = ". $_SS_CONF['num_services'] . ";
@@ -421,6 +428,8 @@ function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
 function socialshare_refresh_cache() {
     global $_CONF, $_TABLES, $_VARS, $_SS_CONF;
 
+    $success = 0;
+
     $http_or_https = ($_CONF['cookiesecure'] ? 'https://' : 'http://');
 
 	$contents = ss_getRemoteFile( $http_or_https . 'www.addtoany.com/ext/updater/files_list/' );
@@ -431,11 +440,16 @@ function socialshare_refresh_cache() {
 			// Download files
 			$file_url = trim( $file_urls[ $i ] );
 			$file_name = substr( strrchr( $file_url, '/' ), 1, 99 );
-			$data = getRemoteFile( $file_url );
-            $rc = writeFile_lck($upload_dir.$file_name,'',$data,'socialshare.lck');
+			$data = ss_getRemoteFile( $file_url );
+			if ( $data != '' ) {
+                $rc = ss_writeFile($upload_dir.$file_name,'',$data);
+                $success++;
+            }
 		}
-		$now = time();
-		DB_query("REPLACE INTO {$_TABLES['vars']} (name,value) VALUES('ss_cache_refresh',{$now});");
+		if ( $success > 0 ) {
+    		$now = time();
+    		DB_query("REPLACE INTO {$_TABLES['vars']} (name,value) VALUES('ss_cache_refresh',{$now});");
+    	}
 	}
 }
 
@@ -480,24 +494,30 @@ function ss_getRemoteFile($url)
     return '';
 }
 
+function ss_writeFile($filename, $tempfile, $data)
+{
+    global $_CONF;
 
-function getRemoteFile($url, $post = null) {
-    if ( function_exists('curl_init') ) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        if(!empty($post)) {
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        }
-        $result = curl_exec($ch);
-        curl_close($ch);
-        return $result;
+    $retval = false; //assume failure of function
+    if (! $tempfile) {
+        $tempfile = tempnam(dirname($filename),basename($filename));
     }
-    return '';
-}
 
+    $ft = fopen($tempfile, 'w');
+    if (flock($ft, LOCK_EX)) {
+        fwrite($ft, $data);
+        flock($ft, LOCK_UN);
+        fclose($ft);
+        @chmod($tempfile, 0644);
+        if (rename($tempfile, $filename)) {
+            $retval=true; // The only path to success
+        } else {
+            @unlink($tempfile);
+        }
+    } else {
+        COM_errorLog("ERROR: SocialShare - Unable to obtain exclusive lock on temp file: " . $tempfile);
+    }
+
+    return $retval;
+}
 ?>
