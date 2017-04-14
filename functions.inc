@@ -162,10 +162,10 @@ function plugin_getheadercode_socialshare()
     if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
         $cacheFile = $_CONF['path_html'].'socialshare/cache/page.js';
         if ( !@file_exists($cacheFile)) {
-            socialshare_refresh_cache();
+            $rc = socialshare_refresh_cache();
         }
         clearstatcache();
-        if ( @file_exists($cacheFile)) {
+        if ( $rc != 0 || @file_exists($cacheFile)) {
             $outputHandle->addLinkScript($_CONF['site_url'].'/socialshare/cache/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
             $cacheLocal = 1;
         } else {
@@ -452,7 +452,7 @@ function socialshare_refresh_cache() {
 			$data = ss_getRemoteFile( $file_url );
 			if ( $data != '' ) {
                 $rc = ss_writeFile($upload_dir.$file_name,'',$data);
-                $success++;
+                if ( $rc == true ) $success++;
             }
 		}
 		if ( $success > 0 ) {
@@ -460,6 +460,7 @@ function socialshare_refresh_cache() {
     		DB_query("REPLACE INTO {$_TABLES['vars']} (name,value) VALUES('ss_cache_refresh',{$now});");
     	}
 	}
+	return $success;
 }
 
 
@@ -467,15 +468,21 @@ function plugin_runScheduledTask_socialshare()
 {
     global $_CONF, $_TABLES, $_SS_CONF, $_VARS;
 
+    $retval = true;
+
     if ( isset($_VARS['ss_cache_refresh']) ) {
         $now = time();
         $delta = $now - $_VARS['ss_cache_refresh'];
         if ( $delta > 86400 ) {
            COM_errorLog("SocialShare: Running refresh cache");
-           socialshare_refresh_cache();
+           $rc = socialshare_refresh_cache();
+           if ( $rc == 0 ) {
+               COM_errorLog("ERROR: SocialShare Plugin - Unable to write local copy of cache files - check directory permissions.");
+                $retval = false;
+           }
         }
     }
-    return;
+    return $retval;
 }
 
 function ss_getRemoteFile($url)
@@ -518,7 +525,7 @@ function ss_writeFile($filename, $tempfile, $data)
         flock($ft, LOCK_UN);
         fclose($ft);
         @chmod($tempfile, 0644);
-        if (rename($tempfile, $filename)) {
+        if (@rename($tempfile, $filename)) {
             $retval=true; // The only path to success
         } else {
             @unlink($tempfile);
