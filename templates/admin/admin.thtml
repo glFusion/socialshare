@@ -3,24 +3,56 @@
 <form class="uk-form uk-form-horizontal" method="post" action="{s_form_action}" name="ss_config_form" id="ss_config_form">
 
   <ul class="uk-tab" data-uk-tab="{connect:'#socialshare-form'}">
+    <li><a href="#">{$LANG_SS00[general_settings]}</a></li>
     <li><a href="#">{$LANG_SS00[story_share_settings]}</a></li>
     <li><a href="#">{$LANG_SS00[social_share_settings]}</a></li>
     <li><a href="#">{$LANG_SS00[services]}</a></li>
   </ul>
 
   <ul id="socialshare-form" class="uk-switcher uk-margin">
+		<li>
+      <div class="uk-panel uk-panel-box uk-margin">
+        <fieldset>
+          <legend>{$LANG_SS00[general_settings]}</legend>
+
+          <div class="uk-form-row">
+            <label class="uk-form-label" for="cache">{$LANG_SS00[cache_prompt]}</label>
+            <div class="uk-form-control slider_checkbox">
+              <input id="cache" class="onoff" type="checkbox" name="cache" {cache_checked} />
+              <span class="uk-form-inline-help">
+                &nbsp;{$LANG_SS00[cache_help]}
+              </span>
+            </div>
+          </div>
+
+          <div class="uk-form-row">
+            <label class="uk-form-label" for="story_enabled">{$LANG_SS00[story_share_prompt]}</label>
+            <div class="uk-form-control slider_checkbox">
+              <input id="story-enabled" class="onoff" type="checkbox" name="story_enabled" {s_checked} />
+              <span class="uk-form-inline-help">
+                &nbsp;&nbsp;{$LANG_SS00[story_share_help]}
+              </span>
+            </div>
+          </div>
+
+          <div class="uk-form-row">
+            <label class="uk-form-label" for="replace_ss">{$LANG_SS00[replace_ss_prompt]}</label>
+            <div class="uk-form-control slider_checkbox">
+              <input id="replace-social-share" class="onoff" type="checkbox" name="replace_ss" {rss_checked} />
+              <span class="uk-form-inline-help">
+                &nbsp;&nbsp;{$LANG_SS00[replace_ss_help]}
+              </span>
+            </div>
+          </div>
+			</fieldset>
+		</li>
+
     <li> {# Story Share Settings #}
 
       <div class="uk-panel uk-panel-box uk-margin">
         <fieldset>
           <legend>{$LANG_SS00[story_share_settings]}</legend>
 
-          <div class="uk-form-row">
-            <label class="uk-form-label" for="story_enabled">{$LANG_SS00[story_share_prompt]}</label>
-            <div class="uk-form-control slider_checkbox">
-              <input id="story-enabled" class="onoff" type="checkbox" name="story_enabled" {s_checked} />
-            </div>
-          </div>
           <div class="uk-form-row">
             <label class="uk-form-label" for="click">{$LANG_SS00[click_prompt]}</label>
             <div class="uk-form-control">
@@ -51,17 +83,6 @@
               </span>
             </div>
           </div>
-{!if cache_available}
-          <div class="uk-form-row">
-            <label class="uk-form-label" for="cache">{$LANG_SS00[cache_prompt]}</label>
-            <div class="uk-form-control slider_checkbox">
-              <input id="cache" class="onoff" type="checkbox" name="cache" {cache_checked} />
-              <span class="uk-form-inline-help">
-                &nbsp;{$LANG_SS00[cache_help]}
-              </span>
-            </div>
-          </div>
-{!endif}
         </fieldset>
       </div>
 
@@ -133,15 +154,6 @@
         <fieldset>
           <legend>{$LANG_SS00[social_share_settings]}</legend>
 
-          <div class="uk-form-row">
-            <label class="uk-form-label" for="replace_ss">{$LANG_SS00[replace_ss_prompt]}</label>
-            <div class="uk-form-control slider_checkbox">
-              <input id="replace-social-share" class="onoff" type="checkbox" name="replace_ss" {rss_checked} />
-              <span class="uk-form-inline-help">
-                &nbsp;&nbsp;{$LANG_SS00[replace_ss_help]}
-              </span>
-            </div>
-          </div>
 
           <div class="uk-form-row">
             <label class="uk-form-label" for="ss_summary">{$LANG_SS00[ss_summary_prompt]}</label>
