@@ -36,7 +36,7 @@
           </div>
 
           <div class="uk-form-row">
-            <label class="uk-form-label" for="replace_ss">{$LANG_SS00[replace_ss_prompt]}</label>
+            <label class="uk-form-label" for="replace_ss">{$LANG_SS00[replace_ss_prompt]}&nbsp;</label>
             <div class="uk-form-control slider_checkbox">
               <input id="replace-social-share" class="onoff" type="checkbox" name="replace_ss" {rss_checked} />
               <span class="uk-form-inline-help">
@@ -51,7 +51,7 @@
 
       <div class="uk-panel uk-panel-box uk-margin">
         <fieldset>
-          <legend>{$LANG_SS00[story_share_settings]}</legend>
+          <legend>{$LANG_SS00[story_share_settings]}&nbsp;&nbsp;<img class="uk-align-right" src="{site_admin_url}/plugins/socialshare/images/ss-icons.png"></legend>
 
           <div class="uk-form-row">
             <label class="uk-form-label" for="click">{$LANG_SS00[click_prompt]}</label>
@@ -152,7 +152,7 @@
 
       <div class="uk-panel uk-panel-box uk-margin">
         <fieldset>
-          <legend>{$LANG_SS00[social_share_settings]}</legend>
+          <legend>{$LANG_SS00[social_share_settings]}&nbsp;&nbsp;<img class="uk-align-right" src="{site_admin_url}/plugins/socialshare/images/ss-buttons.png"></legend>
 
 
           <div class="uk-form-row">
@@ -191,7 +191,7 @@
               </select>
 
               <span class="uk-form-help-inline">
-                <img src="{site_admin_url}/plugins/socialshare/images/sharewithcounters.png"> Not all share buttons support counters.
+                <img src="{site_admin_url}/plugins/socialshare/images/sharewithcounters.png"> {$LANG_SS00[share_counters_help]}
               </span>
 
             </div>
