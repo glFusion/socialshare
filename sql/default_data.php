@@ -133,6 +133,7 @@ $_SQL_DATA['services'] = array(
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Trello ', 0, 0, 0, 'trello');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Tuenti ', 0, 0, 0, 'tuenti');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Tumblr ', 0, 0, 0, 'tumblr');",
+    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('TypePad Post ', 0, 0, 0, 'typepad_post');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Twiddla ', 0, 0, 0, 'twiddla');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Twitter ', 1, 0, 1, 'twitter');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Viadeo ', 0, 0, 0, 'viadeo');",
