@@ -211,13 +211,6 @@ $T->set_var('sss_0_selected', $_SS_CONF['ss_summary'] == 0 ? ' selected="selecte
 $T->set_var('sss_1_selected', $_SS_CONF['ss_summary'] == 1 ? ' selected="selected" ' : '');
 $T->set_var('cache_checked', $_SS_CONF['cache'] == 1 ? ' checked="checked" ' : '');
 
-
-if ( function_exists('curl_init') ) {
-    $T->set_var('cache_available',true);
-} else {
-    $T->unset_var('cache_available');
-}
-
 $T->set_var(array(
     'services'  => _services_edit(),
     'lang_save' => $LANG_SS00['save'],

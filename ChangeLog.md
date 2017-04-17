@@ -1,6 +1,7 @@
 ## v1.1.0
   - Support for locally caching AddToAny JavaScript, CSS, and images
   - Fixed issue where share story icon did not work on infinite scroll when story share buttons enabled
+  - Added missing TypePad service
 
 ## v1.0.0
   - Public Release
