@@ -470,16 +470,17 @@ function plugin_runScheduledTask_socialshare()
 
     $retval = true;
 
-    if ( isset($_VARS['ss_cache_refresh']) ) {
+    if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
+        if ( !isset($_VARS['ss_cache_refresh'] ) ) $_VARS['ss_cache_refresh'] = 0;
         $now = time();
         $delta = $now - $_VARS['ss_cache_refresh'];
         if ( $delta > 86400 ) {
-           COM_errorLog("SocialShare: Running refresh cache");
-           $rc = socialshare_refresh_cache();
-           if ( $rc == 0 ) {
-               COM_errorLog("ERROR: SocialShare Plugin - Unable to write local copy of cache files - check directory permissions.");
+            COM_errorLog("SocialShare: Running refresh cache");
+            $rc = socialshare_refresh_cache();
+            if ( $rc == 0 ) {
+                COM_errorLog("ERROR: SocialShare Plugin - Unable to write local copy of cache files - check directory permissions.");
                 $retval = false;
-           }
+            }
         }
     }
     return $retval;
