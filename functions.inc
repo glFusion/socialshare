@@ -113,8 +113,8 @@ function plugin_cclabel_socialshare() {
 
     if (SEC_hasRights('socialshare.admin') ) {
         return array($LANG_SS00['menulabel'],
-            $_CONF['site_admin_url'] . '/plugins/socialshare/index.php',
-            $_CONF['site_admin_url'] . '/plugins/socialshare/images/socialshare.png');
+        $_CONF['site_admin_url'] . '/plugins/socialshare/index.php',
+        $_CONF['site_admin_url'] . '/plugins/socialshare/images/socialshare.png');
     } else {
         return '';
     }
@@ -131,12 +131,12 @@ function plugin_getconfigelementhelp_socialshare($option, $doclang='english')
     global $_CONF, $_SS_CONF;
 
     $doc_path = $_CONF['path_html'] . $_SS_CONF['pi_name'] .
-                "/docs/$doclang/config.html";
+    "/docs/$doclang/config.html";
     if (!is_file($doc_path )) {
         $doclang = 'english';
     }
     $doc_url = $_CONF['site_url'] . '/' . $_SS_CONF['pi_name'] .
-        '/docs/' . $doclang . '/config.html';
+    '/docs/' . $doclang . '/config.html';
 
     if (!empty($option)) {
         $doc_url .= '#desc_' . $option;
@@ -203,15 +203,15 @@ function plugin_getheadercode_socialshare()
     $adScript = "var a2a_config = a2a_config || {};";
     if ( $cacheLocal ) {
         $adScript .= "
-a2a_config.static_server =\"" . $static_server . "\";";
+        a2a_config.static_server =\"" . $static_server . "\";";
     }
     $adScript .= "
-a2a_config.delay = ".$_SS_CONF['delay'].";
-a2a_config.onclick = ".($_SS_CONF['click'] ? 1 : 0) .";
-a2a_config.num_services = ". $_SS_CONF['num_services'] . ";
-a2a_config.prioritize = [ ".$compact_services." ];
-a2a_config.exclude_services = [ ".$excluded_services." ];
-";
+    a2a_config.delay = ".$_SS_CONF['delay'].";
+    a2a_config.onclick = ".($_SS_CONF['click'] ? 1 : 0) .";
+    a2a_config.num_services = ". $_SS_CONF['num_services'] . ";
+    a2a_config.prioritize = [ ".$compact_services." ];
+    a2a_config.exclude_services = [ ".$excluded_services." ];
+    ";
 
     $outputHandle->addScript($adScript);
 
@@ -401,14 +401,15 @@ function plugin_social_share_replacement_socialshare($type,$title,$url,$desc)
                 break;
             default :
                 $T->set_var('share_button_size',32);
+                break;
         }
 
         $T->set_block('buttons', 'ShareButtons', 'sButtons');
 
         $T->set_var(array(
-            'heading'   => $LANG_SS00['heading'],
-            'url'       => ($url != '' ) ? $url : '',
-            'title'     => ($title != '' ) ? $title : '',
+        'heading'   => $LANG_SS00['heading'],
+        'url'       => ($url != '' ) ? $url : '',
+        'title'     => ($title != '' ) ? $title : '',
         ));
 
         foreach ($button AS $bt ) {
@@ -441,26 +442,26 @@ function socialshare_refresh_cache() {
 
     $http_or_https = ($_CONF['cookiesecure'] ? 'https://' : 'http://');
 
-	$contents = ss_getRemoteFile( $http_or_https . 'www.addtoany.com/ext/updater/files_list/' );
-	$file_urls = explode( "\n", $contents, 20 );
+    $contents = ss_getRemoteFile( $http_or_https . 'www.addtoany.com/ext/updater/files_list/' );
+    $file_urls = explode( "\n", $contents, 20 );
     $upload_dir = $_CONF['path_html'].'socialshare/cache/';
-	if ( count( $file_urls ) > 0 ) {
-		for ( $i = 0; $i < count( $file_urls ); $i++ ) {
-			// Download files
-			$file_url = trim( $file_urls[ $i ] );
-			$file_name = substr( strrchr( $file_url, '/' ), 1, 99 );
-			$data = ss_getRemoteFile( $file_url );
-			if ( $data != '' ) {
+    if ( count( $file_urls ) > 0 ) {
+        for ( $i = 0; $i < count( $file_urls ); $i++ ) {
+            // Download files
+            $file_url = trim( $file_urls[ $i ] );
+            $file_name = substr( strrchr( $file_url, '/' ), 1, 99 );
+            $data = ss_getRemoteFile( $file_url );
+            if ( $data != '' ) {
                 $rc = ss_writeFile($upload_dir.$file_name,'',$data);
                 if ( $rc == true ) $success++;
             }
-		}
-		if ( $success > 0 ) {
-    		$now = time();
-    		DB_query("REPLACE INTO {$_TABLES['vars']} (name,value) VALUES('ss_cache_refresh',{$now});");
-    	}
-	}
-	return $success;
+        }
+        if ( $success > 0 ) {
+            $now = time();
+            DB_query("REPLACE INTO {$_TABLES['vars']} (name,value) VALUES('ss_cache_refresh',{$now});");
+        }
+    }
+    return $success;
 }
 
 
