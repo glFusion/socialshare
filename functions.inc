@@ -444,6 +444,7 @@ function socialshare_refresh_cache() {
 
     $contents = ss_getRemoteFile( $http_or_https . 'www.addtoany.com/ext/updater/files_list/' );
     $file_urls = explode( "\n", $contents, 20 );
+    $file_urls[] = 'https://static.addtoany.com/menu/svg/icons.21.svg.js';
     $upload_dir = $_CONF['path_html'].'socialshare/cache/';
     if ( count( $file_urls ) > 0 ) {
         for ( $i = 0; $i < count( $file_urls ); $i++ ) {

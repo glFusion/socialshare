@@ -1,3 +1,6 @@
+## v1.1.1
+  - Fixed issue where AddToAny references an older JS file that is not included in the cache file list
+
 ## v1.1.0
   - Support for locally caching AddToAny JavaScript, CSS, and images
   - Fixed issue where share story icon did not work on infinite scroll when story share buttons enabled
