@@ -1,3 +1,6 @@
+## v1.2.0
+  - Updated to support glFusion v1.7.0+ class auto loading
+
 ## v1.1.1
   - Fixed issue where AddToAny references an older JS file that is not included in the cache file list
 

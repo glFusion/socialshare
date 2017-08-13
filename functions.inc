@@ -492,8 +492,6 @@ function ss_getRemoteFile($url)
 {
     global $_CONF;
 
-    require_once $_CONF['path'] . 'lib/http/http.php';
-
     $http=new http_class;
     $http->timeout=0;
     $http->data_timeout=0;

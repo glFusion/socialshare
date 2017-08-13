@@ -51,6 +51,7 @@ function socialshare_upgrade()
             DB_query("INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('TypePad Post ', 0, 0, 0, 'typepad_post');",1);
 
         case '1.1.0' :
+        case '1.1.1' :
             // no changes
 
         default:
