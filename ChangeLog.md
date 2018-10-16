@@ -1,3 +1,8 @@
+SocialShare Changelog
+
+## v1.2.1
+  - Ensure header code is only loaded once
+
 ## v1.2.0
   - Updated to support glFusion v1.7.0+ class auto loading
 
