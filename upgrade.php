@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Upgrade routines                                                         |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2017 by the following authors:                        |
+// | Copyright (C) 2009-2018 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -52,6 +52,7 @@ function socialshare_upgrade()
 
         case '1.1.0' :
         case '1.1.1' :
+        case '1.2.0' :
             // no changes
 
         default:

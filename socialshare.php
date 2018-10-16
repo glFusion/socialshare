@@ -4,7 +4,7 @@
 // +--------------------------------------------------------------------------+
 // | socialshare.php                                                          |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2017 by the following authors:                        |
+// | Copyright (C) 2009-2018 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -31,7 +31,7 @@ if (!defined ('GVERSION')) {
 
 $_SS_CONF['pi_name']           = 'socialshare';
 $_SS_CONF['pi_display_name']   = 'SocialShare';
-$_SS_CONF['pi_version']        = '1.2.0';
+$_SS_CONF['pi_version']        = '1.2.1';
 $_SS_CONF['gl_version']        = '1.7.0';
 $_SS_CONF['pi_url']            = 'https://www.glfusion.org';
 
