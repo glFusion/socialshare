@@ -6,7 +6,7 @@
 // |                                                                          |
 // | Implement the glFusion Plugin API                                        |
 // +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2017 by the following authors:                        |
+// | Copyright (C) 2009-2018 by the following authors:                        |
 // |                                                                          |
 // | Mark R. Evans          mark AT glfusion DOT org                          |
 // +--------------------------------------------------------------------------+
@@ -148,6 +148,7 @@ function plugin_getheadercode_socialshare()
 {
     global $_TABLES, $_CONF, $_SS_CONF, $LANG_SS00;
 
+    static $called = 0;
     $retval = '';
     $adScript = '';
     $firstCP = 0;
@@ -157,6 +158,9 @@ function plugin_getheadercode_socialshare()
     $cacheLocal = 0;
     $http_or_https = ($_CONF['cookiesecure'] ? 'https://' : 'http://');
 
+    if ( $called == 1 ) return '';
+
+    $called = 1;
     $outputHandle = outputHandler::getInstance();
     $rc = 1;
     if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
