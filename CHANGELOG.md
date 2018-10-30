@@ -1,4 +1,4 @@
-SocialShare Changelog
+# SocialShare Plugin Changelog
 
 ## v1.2.1
   - Ensure header code is only loaded once

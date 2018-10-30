@@ -1,4 +1,4 @@
-#social_share_buttons_center {
+.social_share_buttons_center {
   display: flex;
   justify-content: center;
 }
