@@ -221,7 +221,7 @@ $T->parse('output', 'admin');
 $page = '';
 
 $menu_arr = array(
-        array('url'  => $_CONF['site_admin_url'],
+        array('url'  => $_CONF['site_admin_url'].'/index.php',
               'text' => $LANG_ADMIN['admin_home']),
 );
 $page  .= COM_startBlock($LANG_SS00['menulabel'],'', COM_getBlockTemplate('_admin_block', 'header'));
