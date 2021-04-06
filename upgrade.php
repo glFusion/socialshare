@@ -1,31 +1,18 @@
 <?php
-// +--------------------------------------------------------------------------+
-// | SocialShare Plugin for glFusion CMS                                      |
-// +--------------------------------------------------------------------------+
-// | upgrade.php                                                              |
-// |                                                                          |
-// | Upgrade routines                                                         |
-// +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2018 by the following authors:                        |
-// |                                                                          |
-// | Mark R. Evans          mark AT glfusion DOT org                          |
-// +--------------------------------------------------------------------------+
-// |                                                                          |
-// | This program is free software; you can redistribute it and/or            |
-// | modify it under the terms of the GNU General Public License              |
-// | as published by the Free Software Foundation; either version 2           |
-// | of the License, or (at your option) any later version.                   |
-// |                                                                          |
-// | This program is distributed in the hope that it will be useful,          |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-// | GNU General Public License for more details.                             |
-// |                                                                          |
-// | You should have received a copy of the GNU General Public License        |
-// | along with this program; if not, write to the Free Software Foundation,  |
-// | Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.          |
-// |                                                                          |
-// +--------------------------------------------------------------------------+
+/**
+* glFusion CMS
+*
+* SocialShare - SocialShare Plugin for glFusion
+*
+* Plugin Upgrade
+*
+* @license GNU General Public License version 2 or later
+*     http://www.opensource.org/licenses/gpl-license.php
+*
+*  Copyright (C) 2009-2021 by the following authors:
+*   Mark R. Evans   mark AT glfusion DOT org
+*
+*/
 
 if (!defined ('GVERSION')) {
     die ('This file can not be used on its own.');
@@ -54,6 +41,8 @@ function socialshare_upgrade()
         case '1.1.1' :
         case '1.2.0' :
             // no changes
+        case '1.2.1' :
+            // need to remove unsupported services
 
         default:
             DB_query("UPDATE {$_TABLES['plugins']} SET pi_version='".$_SS_CONF['pi_version']."',pi_gl_version='".$_SS_CONF['gl_version']."' WHERE pi_name='socialshare' LIMIT 1");
