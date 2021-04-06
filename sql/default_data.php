@@ -1,31 +1,18 @@
 <?php
-// +--------------------------------------------------------------------------+
-// | SocialShare Plugin for glFusion CMS                                      |
-// +--------------------------------------------------------------------------+
-// | default_data.php                                                         |
-// |                                                                          |
-// | Data for SocialShare Plugin                                              |
-// +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2017 by the following authors:                        |
-// |                                                                          |
-// | Mark R. Evans          mark AT glfusion DOT org                          |
-// +--------------------------------------------------------------------------+
-// |                                                                          |
-// | This program is free software; you can redistribute it and/or            |
-// | modify it under the terms of the GNU General Public License              |
-// | as published by the Free Software Foundation; either version 2           |
-// | of the License, or (at your option) any later version.                   |
-// |                                                                          |
-// | This program is distributed in the hope that it will be useful,          |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-// | GNU General Public License for more details.                             |
-// |                                                                          |
-// | You should have received a copy of the GNU General Public License        |
-// | along with this program; if not, write to the Free Software Foundation,  |
-// | Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.          |
-// |                                                                          |
-// +--------------------------------------------------------------------------+
+/**
+* glFusion CMS
+*
+* SocialShare - SocialShare Plugin for glFusion
+*
+* SQL Table Schema
+*
+* @license GNU General Public License version 2 or later
+*     http://www.opensource.org/licenses/gpl-license.php
+*
+*  Copyright (C) 2009-2021 by the following authors:
+*   Mark R. Evans   mark AT glfusion DOT org
+*
+*/
 
 if (!defined ('GVERSION')) {
     die ('This file can not be used on its own.');
@@ -46,24 +33,24 @@ $_SQL_DATA['config'] = array(
 );
 
 $_SQL_DATA['services'] = array(
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('AIM', 0, 0, 0, 'aim');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('AIM', 0, 0, 0, 'aim');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Amazon Wish List', 0, 0, 0, 'amazon_wish_list');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('AOL Mail', 0, 0, 0, 'aol_mail');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Baidu', 0, 0, 0, 'baidu');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Baidu', 0, 0, 0, 'baidu');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Balatarin', 0, 0, 0, 'balatarin');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('BibSonomy', 0, 0, 0, 'bibsonomy');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Bitty Browser', 0, 0, 0, 'bitty_browser');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Blinklist', 0, 0, 0, 'blinklist');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Blogger Post', 0, 0, 0, 'blogger_post');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Blinklist', 0, 0, 0, 'blinklist');",
+    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Blogger', 0, 0, 0, 'blogger');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('BlogMarks', 0, 0, 0, 'blogmarks');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Bookmarks.fr', 0, 0, 0, 'bookmarks_fr');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Box.net', 0, 0, 0, 'box_net');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('BuddyMarks', 0, 0, 0, 'buddymarks');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('BuddyMarks', 0, 0, 0, 'buddymarks');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Buffer', 0, 0, 0, 'buffer');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Care2 News', 0, 0, 0, 'care2_news');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('CiteULike', 0, 0, 0, 'citeulike');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Copy Link ', 0, 0, 0, 'copy_link');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Delicious ', 0, 0, 0, 'delicious');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Delicious ', 0, 0, 0, 'delicious');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Design Float ', 0, 0, 0, 'design_float');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Diary.Ru ', 0, 0, 0, 'diary_ru');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Diaspora ', 0, 0, 0, 'diaspora');",
@@ -79,14 +66,15 @@ $_SQL_DATA['services'] = array(
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Fark ', 0, 0, 0, 'fark');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Flipboard ', 0, 0, 0, 'flipboard');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Folkd ', 0, 0, 0, 'folkd');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Google+ ', 1, 0, 1, 'google_plus');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Google+ ', 1, 0, 1, 'google_plus');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Google Bookmarks ', 0, 0, 0, 'google_bookmarks');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Google Classroom ', 0, 0, 0, 'google_classroom');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Google Gmail ', 0, 0, 0, 'google_gmail');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Hacker News ', 0, 0, 0, 'hacker_news');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Hatena ', 0, 0, 0, 'hatena');",
+    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Houzz ', 0, 0, 0, 'houzz');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Instapaper ', 0, 0, 0, 'instapaper');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Jamespot ', 0, 0, 0, 'jamespot');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Jamespot ', 0, 0, 0, 'jamespot');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Kakao ', 0, 0, 0, 'kakao');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Kindle It ', 0, 0, 0, 'kindle_it');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Known ', 0, 0, 0, 'known');",
@@ -94,6 +82,7 @@ $_SQL_DATA['services'] = array(
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('LinkedIn ', 1, 0, 1, 'linkedin');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('LiveJournal ', 0, 0, 0, 'livejournal');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Mail.Ru ', 0, 0, 0, 'mail_ru');",
+"INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Mastodon ', 0, 0, 0, 'mastodon');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Mendeley ', 0, 0, 0, 'mendeley');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Meneame ', 0, 0, 0, 'meneame');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Mixi ', 0, 0, 0, 'mixi');",
@@ -149,7 +138,7 @@ $_SQL_DATA['services'] = array(
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Yahoo Mail ', 0, 0, 0, 'yahoo_mail');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Yahoo Messenger ', 0, 0, 0, 'yahoo_messenger');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Yoolink ', 0, 0, 0, 'yoolink');",
-    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('YouMob ', 0, 0, 0, 'youmob');",
+//    "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('YouMob ', 0, 0, 0, 'youmob');",
     "INSERT INTO {$_TABLES['ss_services']} (`name`, `priority`, `excluded`, `button`, `code`) VALUES('Yummly ', 0, 0, 0, 'yummly');"
 );
 
