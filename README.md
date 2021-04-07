@@ -8,21 +8,21 @@ AddToAny just works. No registration, and no user accounts to manage.
 
 ## Features
 
-*  Counters -fast & official share counts in the same style
-*  Vector share buttons (SVG icons)
-*  Universal Share Button and Smart Menu
-*  Individual share links
-*  Choose from over 100 services
-*  Universal email sharing makes it easy to share via Gmail, Yahoo! Mail, Outlook.com (Hotmail), AOL Mail, and any other web and native apps
-*  Automatic Google Analytics integration for sharing analytics
-*  Track shared links with Bitly, Google URL Shortener, and custom URL shorteners
-*  Display share counts on stories and other content
-*  Loads asynchronously so your content always loads before or in parallel with the AddToAny JavaScript
-*  Supports theme features such as HTML5, widgets, infinite scroll, post formats
-*  No signup, no login, no account necessary
-*  AddToAny gives users the choice in sharing from a service's native app or from a web app. For example, choose between Twitter's native app or Twitter's mobile web app
-*  AddToAny' SVG icons are super-lightweight and pixel-perfect at any size, and AddToAny' responsive share menu fits on all displays
-*  Automatic AMP (Accelerated Mobile Pages) support for social share buttons on AMP pages
+* Counters -fast & official share counts in the same style
+* Vector share buttons (SVG icons)
+* Universal Share Button and Smart Menu
+* Individual share links
+* Choose from over 100 services
+* Universal email sharing makes it easy to share via Gmail, Yahoo! Mail, Outlook.com (Hotmail), AOL Mail, and any other web and native apps
+* Automatic Google Analytics integration for sharing analytics
+* Track shared links with Bitly, Google URL Shortener, and custom URL shorteners
+* Display share counts on stories and other content
+* Loads asynchronously so your content always loads before or in parallel with the AddToAny JavaScript
+* Supports theme features such as HTML5, widgets, infinite scroll, post formats
+* No signup, no login, no account necessary
+* AddToAny gives users the choice in sharing from a service's native app or from a web app. For example, choose between Twitter's native app or Twitter's mobile web app
+* AddToAny' SVG icons are super-lightweight and pixel-perfect at any size, and AddToAny' responsive share menu fits on all displays
+* Automatic AMP (Accelerated Mobile Pages) support for social share buttons on AMP pages
 
 ## Overview
 
@@ -34,10 +34,10 @@ You also have the ability to **Exclude** services if you wish. When a service is
 
 The Social Share Buttons have the ability to display share counts. It is important to note that not all share services support displaying counters. The following services are known to support share counters are:
 
-*  Facebook
-*  LinkedIn
-*  Pinterest
-*  Tumblr
+* Facebook
+* LinkedIn
+* Pinterest
+* Tumblr
 
 ## LICENSE
 
@@ -48,4 +48,4 @@ version.
 
 glFusion CMS Integration
 Copyright (c) 2009-2017, Mark R. Evans. All rights reserved.
-https://www.glfusion.org
+<https://www.glfusion.org>
