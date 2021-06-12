@@ -42,6 +42,7 @@ function socialshare_upgrade()
         case '1.2.0' :
             // no changes
         case '1.2.1' :
+        case '1.2.2' :
             // need to remove unsupported services
 
         default:

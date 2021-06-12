@@ -1,35 +1,23 @@
 <?php
-// +--------------------------------------------------------------------------+
-// | SocialShare Plugin for glFusion CMS                                      |
-// +--------------------------------------------------------------------------+
-// | functions.inc                                                            |
-// |                                                                          |
-// | Implement the glFusion Plugin API                                        |
-// +--------------------------------------------------------------------------+
-// | Copyright (C) 2009-2018 by the following authors:                        |
-// |                                                                          |
-// | Mark R. Evans          mark AT glfusion DOT org                          |
-// +--------------------------------------------------------------------------+
-// |                                                                          |
-// | This program is free software; you can redistribute it and/or            |
-// | modify it under the terms of the GNU General Public License              |
-// | as published by the Free Software Foundation; either version 2           |
-// | of the License, or (at your option) any later version.                   |
-// |                                                                          |
-// | This program is distributed in the hope that it will be useful,          |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-// | GNU General Public License for more details.                             |
-// |                                                                          |
-// | You should have received a copy of the GNU General Public License        |
-// | along with this program; if not, write to the Free Software Foundation,  |
-// | Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.          |
-// |                                                                          |
-// +--------------------------------------------------------------------------+
+/**
+* glFusion CMS - Social Share Plugin
+*
+* glFusion API functions
+*
+* @license GNU General Public License version 2 or later
+*     http://www.opensource.org/licenses/gpl-license.php
+*
+*  Copyright (C) 2009-2021 by the following authors:
+*   Mark R. Evans   mark AT glfusion DOT org
+*
+*/
 
-if (!defined ('GVERSION')) {
-    die ('This file can not be used on its own!');
+if (!defined('GVERSION')) {
+    die('This file can not be used on its own.');
 }
+
+use \glFusion\Log\Log;
+use \glFusion\FileSystem;
 
 // load the language file(s), including custom strings if any
 
@@ -163,14 +151,14 @@ function plugin_getheadercode_socialshare()
     $called = 1;
     $outputHandle = outputHandler::getInstance();
     $rc = 1;
-    if ( isset($_SS_CONF['cache']) && $_SS_CONF['cache'] ) {
-        $cacheFile = $_CONF['path_html'].'socialshare/cache/page.js';
+    if (isset($_SS_CONF['cache']) && $_SS_CONF['cache']) {
+        $cacheFile = $_CONF['path_data'].'socialshare/cache/page.js';
         if ( !@file_exists($cacheFile)) {
             $rc = socialshare_refresh_cache();
         }
         clearstatcache();
         if ( $rc != 0 || @file_exists($cacheFile)) {
-            $outputHandle->addLinkScript($_CONF['site_url'].'/socialshare/cache/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
+            $outputHandle->addLinkScript($_CONF['site_url'].'/data/socialshare/cache/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
             $cacheLocal = 1;
         } else {
             $outputHandle->addLinkScript($http_or_https.'static.addtoany.com/menu/page.js',HEADER_PRIO_HIGH,'text/javascript',true);
@@ -449,7 +437,8 @@ function socialshare_refresh_cache() {
     $contents = ss_getRemoteFile( $http_or_https . 'www.addtoany.com/ext/updater/files_list/' );
     $file_urls = explode( "\n", $contents, 20 );
     $file_urls[] = 'https://static.addtoany.com/menu/svg/icons.21.svg.js';
-    $upload_dir = $_CONF['path_html'].'socialshare/cache/';
+    $upload_dir = $_CONF['path_html'].'data/socialshare/cache/';
+    Filesystem::mkDir($upload_dir);
     if ( count( $file_urls ) > 0 ) {
         for ( $i = 0; $i < count( $file_urls ); $i++ ) {
             // Download files
@@ -481,10 +470,10 @@ function plugin_runScheduledTask_socialshare()
         $now = time();
         $delta = $now - $_VARS['ss_cache_refresh'];
         if ( $delta > 86400 ) {
-            COM_errorLog("SocialShare: Running refresh cache");
+            Log::write('system',Log::INFO,'SocialShare Plugin: Running cache refresh.');
             $rc = socialshare_refresh_cache();
             if ( $rc == 0 ) {
-                COM_errorLog("ERROR: SocialShare Plugin - Unable to write local copy of cache files - check directory permissions.");
+                Log::write('system',Log::ERROR,'SocialShare Plugin - Unable to write local copy of cache files - check directory permissions.');
                 $retval = false;
             }
         }
@@ -521,7 +510,7 @@ function ss_writeFile($filename, $tempfile, $data)
 
     $retval = false; //assume failure of function
     if (! $tempfile) {
-        $tempfile = tempnam(dirname($filename),basename($filename));
+        $tempfile = @tempnam(dirname($filename),basename($filename));
     }
 
     $ft = fopen($tempfile, 'w');
@@ -536,7 +525,7 @@ function ss_writeFile($filename, $tempfile, $data)
             @unlink($tempfile);
         }
     } else {
-        COM_errorLog("ERROR: SocialShare - Unable to obtain exclusive lock on temp file: " . $tempfile);
+        Log::write('system',Log::ERROR,'SocialShare - Unable to obtain exclusive lock on temp file: ' . $tempfile);
     }
 
     return $retval;

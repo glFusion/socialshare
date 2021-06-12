@@ -1,8 +1,10 @@
 # SocialShare Plugin Changelog
 
-## v1.2.2
+## v1.3.0
 
+- glFusion v2.0 only
 - Refreshed available share / bookmark services
+- Implemented glFusion v2.0 APIs
 
 ## v1.2.1
 
